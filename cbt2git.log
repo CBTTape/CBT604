@@ -1,0 +1,9 @@
+2023-04-03 01:20:23.485951 - Initialized conversion of CBT604
+2023-04-03 01:20:23.561189 - Received CBT.V504.FILE604.PDS from FILE604.XMI 
+2023-04-03 01:20:23.564381 - Found $$$#DATE.txt (text/plain) in CBT.V504.FILE604.PDS, moved to PDS/$$$#DATE
+2023-04-03 01:20:23.565804 - Found @FILE604.txt (text/plain) in CBT.V504.FILE604.PDS, moved to PDS/@FILE604
+2023-04-03 01:20:23.565815 - Found SNOBOL4O.bin containing application/octet-stream, moved to PDS/SNOBOL4O
+2023-04-03 01:20:23.567456 - Found SNOBOL4S.zip (application/zip), trying to unzip
+2023-04-03 01:20:23.567623 - Found SNOBOL4S.zip (application/zip), extracting to CBT604/SNOBOL4S
+2023-04-03 01:20:23.594126 - Found SNOBOL4X.xmi (application/xmit) in CBT.V504.FILE604.PDS
+2023-04-03 01:20:23.602735   - Received RECFM=U data, stored XMIT file as CBT604/SNOBOL4X.xmi
