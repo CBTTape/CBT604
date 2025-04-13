@@ -1,0 +1,4 @@
+IHCUOPT TITLE 'SPTS disassembly of IHCUOPT  8/06/24'
+IHCUOPT  CSECT                           . 000000
+         DC    X'0000000000000000'       . 000000 0000000000000000
+         END   IHCUOPT                   .

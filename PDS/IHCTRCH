@@ -1,0 +1,210 @@
+IHCTRCH TITLE 'SPTS disassembly of IHCTRCH  8/06/24'
+IHCTRCH  CSECT                           . 000000
+         ENTRY IHCERRM                   .
+         USING IHCTRCH,15                .
+IHCERRM  B     DATA000A                  . 000000 47F0 F00A
+         DC    X'05'                     . 000004 05
+         DC    C'TRACE'                  . 000005 E3D9C1C3C5
+DATA000A DC    X'90'                     . 00000A 90
+         DC    X'ECD00C'                 . 00000B ECD00C
+         L     8,DATA0230                . 00000E 5880 F230
+         TM    DATA0243,X'01'            . 000012 9101 F243
+         BNO   TRC$01A6                  . 000016 47E0 F1A6
+         L     11,8(,1)                  . 00001A 58B0 1008
+         L     11,0(,11)                 . 00001E 58B0 B000
+         ST    11,DATA0270               . 000022 50B0 F270
+         CLI   DATA0273,X'D9'            . 000026 95D9 F273
+         BNE   TRC$0048                  . 00002A 4770 F048
+         L     2,268(,8)                 . 00002E 5820 810C
+         LA    2,0(,2)                   . 000032 4120 2000
+         LTR   2,2                       . 000036 1222
+         BZ    TRC$0048                  . 000038 4780 F048
+         LR    14,2                      . 00003C 18E2
+         LM    0,13,132(8)               . 00003E 980D 8084
+TRC$0042 L     14,0(,14)                 . 000042 58E0 E000
+         BR    14                        . 000046 07FE
+TRC$0048 CVD   11,DATA02D8               . 000048 4EB0 F2D8
+         UNPK  DATA0277(3),DATA02DE(2)   . 00004C F321 F277 F2DE
+         OI    DATA0279,X'F0'            . 000052 96F0 F279
+         L     6,0(,1)                   . 000056 5860 1000
+         LA    2,DATA023C                . 00005A 4120 F23C
+         L     1,DATA0238                . 00005E 5810 F238
+         BALR  0,1                            CALL                     *
+                                         . 000062 0501
+         DC    X'00FF'                   . 000064 00FF
+         NOP   0                         . 000066 4700 0000
+         MVI   0(2),X'F1'                . 00006A 92F1 2000
+         STH   3,DATA02D6                . 00006E 4030 F2D6
+         CLC   DATA0272(2),DATA027C      . 000072 D501 F272 F27C
+         BNL   TRC$00A4                  . 000078 47B0 F0A4
+         CLI   DATA0273,X'D7'            . 00007C 95D7 F273
+         BE    TRC$00A4                  . 000080 4780 F0A4
+         CLI   DATA0273,X'D8'            . 000084 95D8 F273
+         BE    TRC$00A4                  . 000088 4780 F0A4
+         CLI   DATA0273,X'DA'            . 00008C 95DA F273
+         BE    TRC$00A4                  . 000090 4780 F0A4
+         CLI   DATA0273,X'E7'            . 000094 95E7 F273
+         BNL   TRC$00D2                  . 000098 47B0 F0D2
+         CLI   DATA0273,X'DD'            . 00009C 95DD F273
+         BL    TRC$00D2                  . 0000A0 4740 F0D2
+TRC$00A4 LR    4,6                       . 0000A4 1846
+         L     6,0(,6)                   . 0000A6 5860 6000
+         CR    6,3                       . 0000AA 1963
+         BL    TRC$00B4                  . 0000AC 4740 F0B4
+         LR    6,3                       . 0000B0 1863
+         BCTR  6,0                            DECREMENT                *
+                                         . 0000B2 0660
+TRC$00B4 BCTR  6,0                            DECREMENT                *
+                                         . 0000B4 0660
+         EX    6,TRC$0300                . 0000B6 4460 F300
+         CLI   DATA0273,X'DA'            . 0000BA 95DA F273
+         BNE   TRC$00D8                  . 0000BE 4770 F0D8
+         LR    5,15                      . 0000C2 185F
+         LR    1,4                       . 0000C4 1814
+         LA    0,112                     . 0000C6 4100 0070
+         SVC   10                             GETMAIN/FREEMAIN         *
+                                         . 0000CA 0A0A
+         LR    15,5                      . 0000CC 18F5
+         B     TRC$00D8                  . 0000CE 47F0 F0D8
+TRC$00D2 MVC   1(7,2),DATA0274           . 0000D2 D206 2001 F274
+TRC$00D8 BAL   7,TRC$0214                     CALL                     *
+                                         . 0000D8 4570 F214
+         B     TRC$01A6                  . 0000DC 47F0 F1A6
+         MVC   1(79,2),DATA0280          . 0000E0 D24E 2001 F280
+         BAL   7,TRC$0214                     CALL                     *
+                                         . 0000E6 4570 F214
+         L     9,4(13)                   . 0000EA 589D 0004
+         LA    10,4                      . 0000EE 41A0 0004
+         SR    11,11                     . 0000F2 1BBB
+TRC$00F4 L     5,16(9)                   . 0000F4 5859 0010
+         CR    5,8                       . 0000F8 1958
+         BE    TRC$01FA                  . 0000FA 4780 F1FA
+         AR    5,10                      . 0000FE 1A5A
+         CLI   0(5),X'00'                . 000100 9500 5000
+         BE    TRC$011E                  . 000104 4780 F11E
+         IC    6,0(5)                    . 000108 4365 0000
+         CLI   0(5),X'08'                . 00010C 9508 5000
+         BNH   TRC$0118                  . 000110 47D0 F118
+         LA    6,8                       . 000114 4160 0008
+TRC$0118 BCTR  6,0                            DECREMENT                *
+                                         . 000118 0660
+         EX    6,TRC$0306                . 00011A 4460 F306
+TRC$011E L     5,12(9)                   . 00011E 5859 000C
+         CLC   0(2,5),DATA02D4           . 000122 D501 5000 F2D4
+         BNE   TRC$013E                  . 000128 4770 F13E
+         LH    6,2(5)                    . 00012C 4865 0002
+         CVD   6,DATA02D8                . 000130 4E60 F2D8
+         UNPK  31(4,2),DATA02DD(3)       . 000134 F332 201F F2DD
+         OI    34(2),X'F0'               . 00013A 96F0 2022
+TRC$013E LA    5,37(,2)                  . 00013E 4150 2025
+         LA    12,4                      . 000142 41C0 0004
+TRC$0146 LR    3,5                       . 000146 1835
+         LA    2,12(,9)                  . 000148 4120 900C
+         BAL   7,TRC$0206                     CALL                     *
+                                         . 00014C 4570 F206
+         AR    9,10                      . 000150 1A9A
+         LA    5,11(,5)                  . 000152 4150 500B
+         BCT   12,TRC$0146                    LOOP                     *
+                                         . 000156 46C0 F146
+         SH    9,DATA027E                . 00015A 4B90 F27E
+         BAL   7,TRC$0214                     CALL                     *
+                                         . 00015E 4570 F214
+         CLC   16(4,9),192(8)            . 000162 D503 9010 80C0
+         BE    TRC$018C                  . 000168 4780 F18C
+         LA    5,44                      . 00016C 4150 002C
+         BXLE  5,10,TRC$0182             . 000170 875A F182
+         SR    12,12                     . 000174 1BCC
+TRC$0176 BXH   12,10,TRC$01EC            . 000176 86CA F1EC
+         C     9,DATA023C(12)            . 00017A 599C F23C
+         BNE   TRC$0176                  . 00017E 4770 F176
+TRC$0182 MVC   22(20,2),DATA02E0         . 000182 D213 2016 F2E0
+         BAL   7,TRC$0214                     CALL                     *
+                                         . 000188 4570 F214
+TRC$018C MVC   1(12,2),DATA02F4          . 00018C D20B 2001 F2F4
+         LA    3,13(2)                   . 000192 4132 000D
+         LA    2,192(8)                  . 000196 4128 00C0
+         BAL   7,TRC$0206                     CALL                     *
+                                         . 00019A 4570 F206
+         BAL   7,TRC$0214                     CALL                     *
+                                         . 00019E 4570 F214
+         OI    DATA0243,X'01'            . 0001A2 9601 F243
+TRC$01A6 MVI   124(8),X'FF'              . 0001A6 92FF 807C
+         CLI   DATA0273,X'D9'            . 0001AA 95D9 F273
+         BNE   TRC$01BA                  . 0001AE 4770 F1BA
+         L     2,268(,8)                 . 0001B2 5820 810C
+         B     TRC$01C6                  . 0001B6 47F0 F1C6
+TRC$01BA CLI   DATA0273,X'DA'            . 0001BA 95DA F273
+         BNE   TRC$01DC                  . 0001BE 4770 F1DC
+         L     2,272(,8)                 . 0001C2 5820 8110
+TRC$01C6 LA    2,0(,2)                   . 0001C6 4120 2000
+         LTR   2,2                       . 0001CA 1222
+         BZ    TRC$01DC                  . 0001CC 4780 F1DC
+         LR    14,2                      . 0001D0 18E2
+         LM    0,13,132(8)               . 0001D2 980D 8084
+         L     14,0(,14)                 . 0001D6 58E0 E000
+         BR    14                        . 0001DA 07FE
+TRC$01DC L     15,DATA0310               . 0001DC 58F0 F310
+         BR    15                        . 0001E0 07FF
+         LM    0,12,20(13)               . 0001E2 980C D014
+         BAL   14,TRC$0042+2                  CALL                     *
+                                         . 0001E6 45E0 F044
+         DC    X'0010'                   . 0001EA 0010
+TRC$01EC ST    9,DATA0240(11)            . 0001EC 509B F240
+         L     9,4(,9)                   . 0001F0 5890 9004
+         LR    11,12                     . 0001F4 18BC
+         B     TRC$00F4                  . 0001F6 47F0 F0F4
+TRC$01FA LA    6,5                       . 0001FA 4160 0005
+         LA    5,DATA02CE                . 0001FE 4150 F2CE
+         B     TRC$0118                  . 000202 47F0 F118
+TRC$0206 L     1,DATA0234                . 000206 5810 F234
+         L     1,92(1)                   . 00020A 5811 005C
+         BALR  0,1                            CALL                     *
+                                         . 00020E 0501
+         DC    X'040A07F7'               . 000210 040A07F7
+TRC$0214 LH    2,DATA02D6                . 000214 4820 F2D6
+         L     1,DATA0238                . 000218 5810 F238
+         BALR  0,1                            CALL                     *
+                                         . 00021C 0501
+         DC    X'0200'                   . 00021E 0200
+         NOP   0                         . 000220 4700 0000
+         MVI   0(2),X'F0'                . 000224 92F0 2000
+         STH   3,DATA02D6                . 000228 4030 F2D6
+         BR    7                         . 00022C 07F7
+         DC    X'0000'                   . 00022E 0000
+DATA0230 DC    V(IBCOM#)                 . 000230 00000000
+DATA0234 DC    V(ADCON#)                 . 000234 00000000
+DATA0238 DC    V(FIOCS#)                 . 000238 00000000
+DATA023C DC    X'04000000'               . 00023C 04000000
+DATA0240 DC    X'000000'                 . 000240 000000
+DATA0243 DC    X'0100000000000000'       . 000243 0100000000000000
+         DC    XL37'0'                   . 00024B 0000000000000000
+DATA0270 DC    X'0000'                   . 000270 0000
+DATA0272 DC    X'0F'                     . 000272 0F
+DATA0273 DC    X'76'                     . 000273 76
+DATA0274 DC    C'IHC'                    . 000274 C9C8C3
+DATA0277 DC    C'  '                     . 000277 4040
+DATA0279 DC    X'40C900'                 . 000279 40C900
+DATA027C DC    X'00F1'                   . 00027C 00F1
+DATA027E DC    X'0010'                   . 00027E 0010
+DATA0280 DC    C'TRACEBACK FOLLOWS-   ROUTINE    ISN   REG.  14  '     *
+                                         . 000280 E3D9C1C3C5C2C1C3
+         DC    CL30' REG.  15   REG. . 0   REG.'                       *
+                                         . 0002B0 40D9C5C74B4040F1
+DATA02CE DC    C'1IBCOM'                 . 0002CE F1C9C2C3D6D4
+DATA02D4 DC    X'4700'                   . 0002D4 4700
+DATA02D6 DC    X'0000'                   . 0002D6 0000
+DATA02D8 DC    X'0000000000'             . 0002D8 0000000000
+DATA02DD DC    X'00'                     . 0002DD 00
+DATA02DE DC    X'0000E3'                 . 0002DE 0000E3
+DATA02E0 EQU   IHCTRCH+736               . 0002E0
+         DC    C'RACEBACK TERMINATED'    . 0002E1 D9C1C3C5C2C1C3D2
+DATA02F4 DC    C'ENTRY '                 . 0002F4 C5D5E3D9E840
+         XC    2517(215,12),894(14)      . 0002FA D7D6 C9D5 E37E
+TRC$0300 MVC   1(1,2),4(4)               . 000300 D200 2001 4004
+TRC$0306 MVC   22(1,2),1(5)              . 000306 D200 2016 5001
+         DC    X'989AF078'               . 00030C 989AF078
+DATA0310 DC    V(SPIECUT2)               . 000310 00000000
+         DROP  15                        .
+         BR    11                        . 000314 07FB
+         DC    X'0700'                   . 000316 0700
+         END   IHCTRCH                   .

@@ -1,0 +1,10 @@
+          DEFINE('Hanoi(n,ns,nd,ni)')  :(Hanoi.)
+Hanoi     EQ(n,0)                      :S(RETURN)
+          OUTPUT = 'Level ' n
+          Hanoi(n - 1,ns,ni,nd)
+          OUTPUT = 'Move Disc ' n ' from ' ns ' to ' nd
+          Hanoi(n - 1,ni,nd,ns)        :(RETURN)
+Hanoi.
+         OUTPUT = 'Testing'
+Test     Hanoi(5, 'A','B','C')
+END

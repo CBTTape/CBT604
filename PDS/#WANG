@@ -1,0 +1,98 @@
+*
+*     Wang's algorlthm adapted from
+*
+*      Griswold, R. E., Poage, J. F., & Polonsky, I. P.
+*          The SNOBOL4 Programming Language.
+*          Pp. 183-185.
+*
+*     This program is the algorithm by Hao Wang ('cf. Toward
+*     Mmechanical Mathematics', IBM Journal of Research and
+*     development 4(1) Jan 1960 Pp.2-22.)  For a proof-decision
+*     procedure for the propositional calculus.  It prints out a
+*     proof or disproof according as a given formula is a theorem
+*     or not.  The algorithm uses sequents which consist of two
+*     lists of formulas separated by an arrow (--*).  Initially, for
+*     a given formula F the sequent
+*
+*     m --* F
+*
+*     is formed.  Wang has defined rules simplifying a formula
+*     in a sequent by removing the main connective and then
+*     generating a new sequent or sequents.  There is a terminal
+*     test for a sequent consisting of only atomic formulas:
+*
+*          A sequent consisting of only atomic formulas is valid if
+*          the two lists of formulas have a formula in common.
+*
+*     By repeated application of the rules, one is led to a set of
+*     sequents consisting of atomic formulas.  If each one of these
+*     sequences is valid then so is the original formula
+*
+*
+*
+      &DUMP = 1 ; &TRIM = 1
+           unop     =   'NOT'
+           binop    =   'AND' | 'IMP' | 'OR' | 'EQU'
+           formula  = ' ' unop . op  '(' BAL . phi ')'  |
++                     ' ' binop . op '(' BAL . phi ',' BAL . psi ')'
+           atom = ( ' ' BAL ' ' ) . a
+
+           DEFINE('Wang(ante,conseq)phi,psi')
+*
+READ       exp     = INPUT                               :F(END)
+           exp     POS(0) '*'                            :S(READ)
+
+FORMULA    OUTPUT  =
+           OUTPUT = 'Formula: ' EXP
+           OUTPUT =
+*
+           Wang(,' ' exp)                         :F(INVALID)
+           OUTPUT = 'valid'                       :(READ)
+INVALID    OUTPUT = 'not valid'                   :(READ)
+*
+Wang       OUTPUT = ante ' --* ' conseq
+           ante   formula =                       :S( $('a' op) )
+           conseq formula =                       :S( $('c' op) )
+           ante   = ante ' '
+           conseq = ' ' conseq ' '
+TEST       ante   atom =                          :F(FRETURN)
+           conseq a                               :S(RETURN)F(TEST)
+*
+*
+aNOT      Wang(ante,conseq ' ' phi)               :S(RETURN)F(FRETURN)
+*
+aAND      Wang(ante ' ' phi ' ' psi,conseq)       :S(RETURN)F(FRETURN)
+*
+aOR       Wang(ante ' ' phi,conseq)               :F(FRETURN)
+          Wang(ante ' ' psi,conseq)               :S(RETURN)F(FRETURN)
+*
+aIMP      Wang(ante ' ' psi,conseq)               :F(FRETURN)
+          Wang(ante, conseq ' ' phi)              :S(RETURN)F(FRETURN)
+*
+aEQU      Wang(ante, ' ' phi ' ' psi,conseq)      :F(FRETURN)
+          Wang(ante,conseq ' ' phi ' ' psi)       :S(RETURN)F(FRETURN)
+*
+cNOT      Wang(ante ' ' phi,conseq)               :S(RETURN)F(FRETURN)
+*
+cAND      Wang(ante,conseq ' ' phi)               :F(FRETURN)
+          Wang(ante,conseq ' ' psi)               :S(RETURN)F(FRETURN)
+*
+*OR     OUTPUT = 'c:"' conseq '" a:"' ante '" phi:"' phi '" psi;"' psi
+*         '"'
+cOR       Wang(ante,conseq ' ' phi ' ' psi)       :S(RETURN)F(FRETURN)
+*
+cIMP      Wang(ante ' ' phi,conseq ' ' psi)       :S(RETURN)F(FRETURN)
+*
+cEQU      Wang(ante ' ' phi,conseq ' ' psi)       :F(FRETURN)
+          Wang(ante ' ' psi,conseq ' ' phi)       :S(RETURN)F(FRETURN)
+END
+P
+IMP(P,P)
+OR(P,NOT(P))
+AND(P,NOT(P))
+EQU(P,NOT(NOT(P)))
+NOT(EQU(P,NOT(P)))
+IMP(NOT(OR(P,Q)),NOT(P))
+NOT(IMP(NOT(OR(P,Q)),NOT(P)))
+IMP(AND(NOT(P),NOT(Q)),EQU(P,Q))
+IMP(IMP(OR(P,Q),OR(P,R)),OR(P,IMP(Q,R)))

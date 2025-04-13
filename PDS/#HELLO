@@ -1,0 +1,7 @@
+  &CODE = 4
+  OUTPUT = 'Hello, mellon ...'
+  OUTPUT = 'I was in the zeroverse.'
+  OUTPUT = 'Since over half of a century, real programmers use SNOBOL.'
+  OUTPUT = 'Try SPITBOL 370. Good bye.'
+  &CODE = 0
+END

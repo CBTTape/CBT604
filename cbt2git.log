@@ -1,0 +1,35 @@
+2025-04-13 21:06:20.230537 - Received CBT.V508.FILE604.PDS from FILE604.XMI 
+2025-04-13 21:06:20.232367 - Found $$$#DATE.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/$$$#DATE
+2025-04-13 21:06:20.232454 - Found $$NOTE.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/$$NOTE
+2025-04-13 21:06:20.232518 - Found $GEN.jcl (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/$GEN
+2025-04-13 21:06:20.232578 - Found $TESTS.jcl (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/$TESTS
+2025-04-13 21:06:20.232636 - Found #HANOI.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#HANOI
+2025-04-13 21:06:20.232694 - Found #HELLO.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#HELLO
+2025-04-13 21:06:20.232761 - Found #PGM1.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM1
+2025-04-13 21:06:20.232828 - Found #PGM2.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM2
+2025-04-13 21:06:20.232967 - Found #PGM3.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM3
+2025-04-13 21:06:20.233036 - Found #PGM4.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM4
+2025-04-13 21:06:20.233093 - Found #PGM5.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM5
+2025-04-13 21:06:20.233208 - Found #PGM6.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM6
+2025-04-13 21:06:20.233293 - Found #PGM7.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM7
+2025-04-13 21:06:20.233361 - Found #PGM8.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#PGM8
+2025-04-13 21:06:20.233420 - Found #QUINE.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#QUINE
+2025-04-13 21:06:20.233478 - Found #SNOBUG.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#SNOBUG
+2025-04-13 21:06:20.233540 - Found #SNOCOPY.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#SNOCOPY
+2025-04-13 21:06:20.233602 - Found #TRACE.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#TRACE
+2025-04-13 21:06:20.233660 - Found #TRIGRAM.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#TRIGRAM
+2025-04-13 21:06:20.233718 - Found #WANG.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/#WANG
+2025-04-13 21:06:20.233783 - Found @FILE604.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/@FILE604
+2025-04-13 21:06:20.233847 - Found IHCCOMH2.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/IHCCOMH2
+2025-04-13 21:06:20.233951 - Found IHCFCOMH.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/IHCFCOMH
+2025-04-13 21:06:20.234064 - Found IHCFCVTH.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/IHCFCVTH
+2025-04-13 21:06:20.234200 - Found IHCFIOSH.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/IHCFIOSH
+2025-04-13 21:06:20.234302 - Found IHCTRCH.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/IHCTRCH
+2025-04-13 21:06:20.234400 - Found IHCUATBL.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/IHCUATBL
+2025-04-13 21:06:20.234479 - Found IHCUOPT.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/IHCUOPT
+2025-04-13 21:06:20.234682 - Found SNOBOL4O.bin (application/octet-stream) in CBT.V508.FILE604.PDS, moved to PDS/SNOBOL4O
+2025-04-13 21:06:20.234822 - Found SNOBOL4X.xmi (application/xmit) in CBT.V508.FILE604.PDS, moved to PDS/SNOBOL4X.xmi
+2025-04-13 21:06:20.251815 - Received GRZ027.SNOBOL4.LINKLIB from SNOBOL4X.xmi 
+2025-04-13 21:06:20.252333 - Found SNOBOL4.bin (application/octet-stream) in GRZ027.SNOBOL4.LINKLIB, moved to SNOBOL4X/SNOBOL4
+2025-04-13 21:06:20.252711 - Found SUBR.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/SUBR
+2025-04-13 21:06:20.253706 - Found S4.txt (text/plain) in CBT.V508.FILE604.PDS, moved to PDS/S4

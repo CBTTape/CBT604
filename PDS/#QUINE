@@ -1,0 +1,2 @@
+ s = ' PUNCH = " s = 0" s "0"; PUNCH = REPLACE(s,+n,"0");END'
+ PUNCH = " s = '" s "'"; PUNCH = REPLACE(s,+n,"'");END

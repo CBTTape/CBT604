@@ -1,0 +1,1279 @@
+IHCFCVTH TITLE 'SPTS disassembly of IHCFCVTH  8/06/24'
+IHCFCVTH CSECT                           . 000000
+         ENTRY ADCON#                    .
+         ENTRY FCVAOUTP                  . 0000AA
+         ENTRY FCVCOUTP                  . 000D32
+         ENTRY FCVEOUTP                  . 000B18
+         ENTRY FCVIOUTP                  . 000616
+         ENTRY FCVLOUTP                  . 00013A
+         ENTRY FCVZOUTP                  . 00028A
+         EXTRN IBCOM#                    .
+         ENTRY INT6SWCH                  . 00101B
+ADCON#   DC    A(CVT004DE)               . 000000 000004DE
+         DC    A(CVT006F8)               . 000004 000006F8
+         DC    A(CVT004DE)               . 000008 000004DE
+         DC    A(FCVEOUTP)               . 00000C 00000B18
+         DC    A(CVT000E6)               . 000010 000000E6
+         DC    A(FCVLOUTP)               . 000014 0000013A
+         DC    A(CVT000E6)               . 000018 000000E6
+         DC    A(FCVLOUTP)               . 00001C 0000013A
+         DC    A(CVT002E6)               . 000020 000002E6
+         DC    A(FCVIOUTP)               . 000024 00000616
+         DC    A(CVT002E6)               . 000028 000002E6
+         DC    A(FCVIOUTP)               . 00002C 00000616
+         DC    A(CVT004DE)               . 000030 000004DE
+         DC    A(CVT00B82)               . 000034 00000B82
+         DC    A(CVT004DE)               . 000038 000004DE
+         DC    A(CVT00B82)               . 00003C 00000B82
+         DC    A(CVT00C58)               . 000040 00000C58
+         DC    A(FCVCOUTP)               . 000044 00000D32
+         DC    A(CVT00C58)               . 000048 00000C58
+         DC    A(FCVCOUTP)               . 00004C 00000D32
+         DC    A(CVT00060)               . 000050 00000060
+         DC    A(FCVAOUTP)               . 000054 000000AA
+         DC    A(CVT0018E)               . 000058 0000018E
+         DC    A(FCVZOUTP)               . 00005C 0000028A
+         USING CVT00060,1                .
+CVT00060 STM   2,6,DATA0FE0              . 000060 9026 1F80
+         LR    5,0                       . 000064 1850
+         SR    4,4                       . 000066 1B44
+         SR    6,6                       . 000068 1B66
+         IC    4,0(,5)                   . 00006A 4340 5000
+         IC    6,1(,5)                   . 00006E 4360 5001
+         SR    6,4                       . 000072 1B64
+         BM    CVT000A2                  . 000074 4740 1042
+         AR    3,6                       . 000078 1A36
+CVT0007A BCTR  4,0                            DECREMENT                *
+                                         . 00007A 0640
+         EX    4,DATA0FCC                . 00007C 4440 1F6C
+         LTR   6,6                       . 000080 1266
+         BC    10,CVT00098               . 000082 47A0 1038
+         LPR   6,6                       . 000086 1066
+         LA    2,1(4,2)                  . 000088 4124 2001
+CVT0008C MVI   0(2),X'40'                . 00008C 9240 2000
+         LA    2,1(,2)                   . 000090 4120 2001
+         BCT   6,CVT0008C                     LOOP                     *
+                                         . 000094 4660 102C
+CVT00098 LM    2,6,DATA0FE0              . 000098 9826 1F80
+         DROP  1                         .
+         LR    1,0                       . 00009C 1810
+         B     2(,1)                     . 00009E 47F0 1002
+         USING IHCFCVTH+96,1             .
+CVT000A2 IC    4,1(,5)                   . 0000A2 4340 5001
+         B     CVT0007A                  . 0000A6 47F0 101A
+         USING FCVAOUTP,1                .
+FCVAOUTP STM   2,6,DATA0FE0              . 0000AA 9026 1F36
+         LR    5,0                       . 0000AE 1850
+         SR    4,4                       . 0000B0 1B44
+         SR    6,6                       . 0000B2 1B66
+         IC    4,0(,5)                   . 0000B4 4340 5000
+         IC    6,1(,5)                   . 0000B8 4360 5001
+         SR    6,4                       . 0000BC 1B64
+         BC    12,CVT000DE               . 0000BE 47C0 1034
+CVT000C2 MVI   0(3),X'40'                . 0000C2 9240 3000
+         LA    3,1(,3)                   . 0000C6 4130 3001
+         BCT   6,CVT000C2                     LOOP                     *
+                                         . 0000CA 4660 1018
+CVT000CE BCTR  4,0                            DECREMENT                *
+                                         . 0000CE 0640
+         EX    4,DATA0FD2                . 0000D0 4440 1F28
+         LM    2,6,DATA0FE0              . 0000D4 9826 1F36
+         DROP  1                         .
+         LR    1,0                       . 0000D8 1810
+         B     2(,1)                     . 0000DA 47F0 1002
+         USING IHCFCVTH+170,1            .
+CVT000DE IC    4,1(,5)                   . 0000DE 4340 5001
+         B     CVT000CE                  . 0000E2 47F0 1024
+         USING CVT000E6,1                .
+CVT000E6 STM   2,6,DATA0FE0              . 0000E6 9026 1EFA
+         LR    5,0                       . 0000EA 1850
+         SR    6,6                       . 0000EC 1B66
+         IC    6,1(,5)                   . 0000EE 4360 5001
+         SR    4,4                       . 0000F2 1B44
+CVT000F4 CLI   0(3),X'E3'                . 0000F4 95E3 3000
+         BE    CVT00132                  . 0000F8 4780 104C
+         CLI   0(3),X'C6'                . 0000FC 95C6 3000
+         BE    CVT0010C                  . 000100 4780 1026
+         LA    3,1(,3)                   . 000104 4130 3001
+         BCT   6,CVT000F4                     LOOP                     *
+                                         . 000108 4660 100E
+CVT0010C TM    0(5),X'04'                . 00010C 9104 5000
+         BZ    CVT0012A                  . 000110 4780 1044
+         MVI   INT6SWCH,X'FF'            . 000114 92FF 1F35
+         ST    4,0(,2)                   . 000118 5040 2000
+         MVI   INT6SWCH,X'00'            . 00011C 9200 1F35
+CVT00120 LM    2,6,DATA0FE0              . 000120 9826 1EFA
+         DROP  1                         .
+         LR    1,0                       . 000124 1810
+         B     2(,1)                     . 000126 47F0 1002
+         USING IHCFCVTH+230,1            .
+CVT0012A STC   4,0(,2)                   . 00012A 4240 2000
+         B     CVT00120                  . 00012E 47F0 103A
+CVT00132 LA    4,1                       . 000132 4140 0001
+         B     CVT0010C                  . 000136 47F0 1026
+         USING FCVLOUTP,1                .
+FCVLOUTP STM   2,6,DATA0FE0              . 00013A 9026 1EA6
+         LR    5,0                       . 00013E 1850
+         SR    6,6                       . 000140 1B66
+         IC    6,1(,5)                   . 000142 4360 5001
+CVT00146 MVI   0(3),X'40'                . 000146 9240 3000
+         LA    3,1(,3)                   . 00014A 4130 3001
+         BCT   6,CVT00146                     LOOP                     *
+                                         . 00014E 4660 100C
+         BCTR  3,0                            DECREMENT                *
+                                         . 000152 0630
+         TM    0(5),X'04'                . 000154 9104 5000
+         BZ    CVT0017C                  . 000158 4780 1042
+         MVI   INT6SWCH,X'FF'            . 00015C 92FF 1EE1
+         L     4,0(,2)                   . 000160 5840 2000
+         MVI   INT6SWCH,X'00'            . 000164 9200 1EE1
+CVT00168 LTR   4,4                       . 000168 1244
+         BNZ   CVT00186                  . 00016A 4770 104C
+         MVI   0(3),X'C6'                . 00016E 92C6 3000
+         DROP  1                         .
+CVT00172 LM    2,6,3750(1)               . 000172 9826 1EA6
+         LR    1,0                       . 000176 1810
+         B     2(,1)                     . 000178 47F0 1002
+         USING IHCFCVTH+314,1            .
+CVT0017C SR    4,4                       . 00017C 1B44
+         IC    4,0(,2)                   . 00017E 4340 2000
+         B     CVT00168                  . 000182 47F0 102E
+CVT00186 MVI   0(3),X'E3'                . 000186 92E3 3000
+         B     CVT00172                  . 00018A 47F0 1038
+         USING CVT0018E,1                .
+CVT0018E STM   2,9,DATA0FE0              . 00018E 9029 1E52
+         LR    5,0                       . 000192 1850
+         SR    4,4                       . 000194 1B44
+         SR    6,6                       . 000196 1B66
+         IC    4,0(,5)                   . 000198 4340 5000
+         IC    6,1(,5)                   . 00019C 4360 5001
+         AR    2,4                       . 0001A0 1A24
+         AR    3,6                       . 0001A2 1A36
+         MVI   DATA1014,X'00'            . 0001A4 9200 1E86
+CVT001A8 LA    7,DATA1013                . 0001A8 4170 1E85
+         LA    8,2                       . 0001AC 4180 0002
+CVT001B0 LTR   6,6                       . 0001B0 1266
+         BC    12,CVT00264               . 0001B2 47C0 10D6
+         BCTR  3,0                            DECREMENT                *
+                                         . 0001B6 0630
+CVT001B8 CLI   0(3),X'F0'                . 0001B8 95F0 3000
+         BL    CVT001FE                  . 0001BC 4740 1070
+         CLI   0(3),X'F9'                . 0001C0 95F9 3000
+         BH    CVT001FE                  . 0001C4 4720 1070
+         MVC   0(1,7),0(3)               . 0001C8 D200 7000 3000
+CVT001CE BCTR  6,0                            DECREMENT                *
+                                         . 0001CE 0660
+         BCTR  7,0                            DECREMENT                *
+                                         . 0001D0 0670
+         BCT   8,CVT001B0                     LOOP                     *
+                                         . 0001D2 4680 1022
+         PACK  DATA1010(2),DATA1012(3)   . 0001D6 F212 1E82 1E84
+         BCTR  2,0                            DECREMENT                *
+                                         . 0001DC 0620
+         MVC   0(1,2),DATA1010           . 0001DE D200 2000 1E82
+         BCT   4,CVT001A8                     LOOP                     *
+                                         . 0001E4 4640 101A
+CVT001E8 TM    DATA1014,X'FF'            . 0001E8 91FF 1E86
+         BZ    CVT001F4                  . 0001EC 4780 1066
+         OI    0(2),X'80'                . 0001F0 9680 2000
+CVT001F4 LM    2,9,DATA0FE0              . 0001F4 9829 1E52
+         DROP  1                         .
+         LR    1,0                       . 0001F8 1810
+         B     2(,1)                     . 0001FA 47F0 1002
+         USING IHCFCVTH+398,1            .
+CVT001FE CLI   0(3),X'C1'                . 0001FE 95C1 3000
+         BL    CVT0021E                  . 000202 4740 1090
+         CLI   0(3),X'C6'                . 000206 95C6 3000
+         BH    CVT0021E                  . 00020A 4720 1090
+         MVC   0(1,7),0(3)               . 00020E D200 7000 3000
+         TR    0(1,7),DATA0F54           . 000214 DC00 7000 1DC6
+         B     CVT001CE                  . 00021A 47F0 1040
+CVT0021E CLI   0(3),X'40'                . 00021E 9540 3000
+         BE    CVT00258                  . 000222 4780 10CA
+         CLI   0(3),X'4E'                . 000226 954E 3000
+         BE    CVT00264                  . 00022A 4780 10D6
+         CLI   0(3),X'50'                . 00022E 9550 3000
+         BE    CVT00264                  . 000232 4780 10D6
+         CLI   0(3),X'60'                . 000236 9560 3000
+         BE    CVT00260                  . 00023A 4780 10D2
+         MVI   DATA1148,X'F2'            . 00023E 92F2 1FBA
+         MVC   DATA115E(11),DATA1133     . 000242 D20A 1FD0 1FA5
+         MVI   DATA1123,X'E1'            . 000248 92E1 1F95
+         LA    9,CVT001B8                . 00024C 4190 102A
+         STM   12,1,DATA1098             . 000250 90C1 1F0A
+         B     CVT0042C                  . 000254 47F0 129E
+CVT00258 MVI   0(7),X'F0'                . 000258 92F0 7000
+         B     CVT001CE                  . 00025C 47F0 1040
+CVT00260 MVI   DATA1014,X'FF'            . 000260 92FF 1E86
+CVT00264 BCT   8,CVT0027C                     LOOP                     *
+                                         . 000264 4680 10EE
+         NI    DATA1013,X'0F'            . 000268 940F 1E85
+         BCTR  2,0                            DECREMENT                *
+                                         . 00026C 0620
+         MVC   0(1,2),DATA1013           . 00026E D200 2000 1E85
+         BCT   4,CVT0027C                     LOOP                     *
+                                         . 000274 4640 10EE
+         B     CVT001E8                  . 000278 47F0 105A
+CVT0027C BCTR  2,0                            DECREMENT                *
+                                         . 00027C 0620
+         MVI   0(2),X'00'                . 00027E 9200 2000
+         BCT   4,CVT0027C                     LOOP                     *
+                                         . 000282 4640 10EE
+         B     CVT001E8                  . 000286 47F0 105A
+         USING FCVZOUTP,1                .
+FCVZOUTP STM   2,6,DATA1054              . 00028A 9026 1DCA
+         LR    5,0                       . 00028E 1850
+         SR    4,4                       . 000290 1B44
+         SR    6,6                       . 000292 1B66
+         IC    4,0(,5)                   . 000294 4340 5000
+         IC    6,1(,5)                   . 000298 4360 5001
+         AR    2,4                       . 00029C 1A24
+         AR    3,6                       . 00029E 1A36
+CVT002A0 BCTR  2,0                            DECREMENT                *
+                                         . 0002A0 0620
+         BCTR  3,0                            DECREMENT                *
+                                         . 0002A2 0630
+         UNPK  DATA1011(3),0(2,2)        . 0002A4 F321 1D87 2000
+         TR    DATA1011(2),DATA100C      . 0002AA DC01 1D87 1D82
+         MVC   0(1,3),DATA1012           . 0002B0 D200 3000 1D88
+         BCT   6,CVT002BE                     LOOP                     *
+                                         . 0002B6 4660 1034
+         B     CVT002DC                  . 0002BA 47F0 1052
+CVT002BE BCTR  3,0                            DECREMENT                *
+                                         . 0002BE 0630
+         MVC   0(1,3),DATA1011           . 0002C0 D200 3000 1D87
+         BCT   6,CVT002CE                     LOOP                     *
+                                         . 0002C6 4660 1044
+         B     CVT002DC                  . 0002CA 47F0 1052
+CVT002CE BCT   4,CVT002A0                     LOOP                     *
+                                         . 0002CE 4640 1016
+CVT002D2 BCTR  3,0                            DECREMENT                *
+                                         . 0002D2 0630
+         MVI   0(3),X'40'                . 0002D4 9240 3000
+         BCT   6,CVT002D2                     LOOP                     *
+                                         . 0002D8 4660 1048
+CVT002DC LM    2,6,DATA1054              . 0002DC 9826 1DCA
+         LR    1,0                       . 0002E0 1810
+         DROP  1                         .
+         B     2(,1)                     . 0002E2 47F0 1002
+         USING CVT002E6,1                .
+CVT002E6 STM   2,12,DATA0FE0             . 0002E6 902C 1CFA
+         BAL   4,CVT0032E                     CALL                     *
+                                         . 0002EA 4540 1048
+         TM    DATA1014,X'40'            . 0002EE 9140 1D2E
+         BZ    CVT002F8                  . 0002F2 4780 1012
+         LNR   11,11                     . 0002F6 11BB
+CVT002F8 TM    0(5),X'05'                . 0002F8 9105 5000
+         MVI   INT6SWCH,X'FF'            . 0002FC 92FF 1D35
+         BZ    CVT0031E                  . 000300 4780 1038
+         TM    0(5),X'04'                . 000304 9104 5000
+         BZ    CVT00326                  . 000308 4780 1040
+         ST    11,0(,2)                  . 00030C 50B0 2000
+CVT00310 LM    2,12,DATA0FE0             . 000310 982C 1CFA
+         MVI   INT6SWCH,X'00'            . 000314 9200 1D35
+         LR    1,0                       . 000318 1810
+         DROP  1                         .
+         B     2(,1)                     . 00031A 47F0 1002
+         USING IHCFCVTH+742,1            .
+CVT0031E STH   11,0(,2)                  . 00031E 40B0 2000
+         B     CVT00310                  . 000322 47F0 102A
+CVT00326 STC   11,0(,2)                  . 000326 42B0 2000
+         B     CVT00310                  . 00032A 47F0 102A
+         DROP  1                         .
+CVT0032E BALR  12,0                           BASE                     *
+                                         . 00032E 05C0
+         USING *,12                      .
+         LR    5,0                       . 000330 1850
+         SR    6,6                       . 000332 1B66
+         SR    7,7                       . 000334 1B77
+         STM   6,7,DATA10C0              . 000336 9067 CD90
+         IC    6,1(,5)                   . 00033A 4360 5001
+         IC    7,2(,5)                   . 00033E 4370 5002
+         SR    8,8                       . 000342 1B88
+         SR    10,10                     . 000344 1BAA
+         SR    11,11                     . 000346 1BBB
+         STM   10,11,DATA10B0            . 000348 90AB CD80
+         MVI   DATA1014,X'00'            . 00034C 9200 CCE4
+CVT00350 CLI   0(3),X'F0'                . 000350 95F0 3000
+         BL    CVT003DE                  . 000354 4740 C0AE
+         CLI   0(3),X'F9'                . 000358 95F9 3000
+         BH    CVT003DE                  . 00035C 4720 C0AE
+         OI    DATA1014,X'80'            . 000360 9680 CCE4
+         MVN   DATA10C3(1),0(3)          . 000364 D100 CD93 3000
+         CL    10,DATA10E8               . 00036A 55A0 CDB8
+         BH    CVT003D2                  . 00036E 4720 C0A2
+         SLDL  10,3                      . 000372 8DA0 0003
+         BAL   9,CVT003BC                     CALL                     *
+                                         . 000376 4590 C08C
+         BAL   9,CVT003BC                     CALL                     *
+                                         . 00037A 4590 C08C
+         AL    11,DATA10C0               . 00037E 5EB0 CD90
+         BC    12,CVT0038A               . 000382 47C0 C05A
+         AH    10,DATA0FAA               . 000386 4AA0 CC7A
+CVT0038A STM   10,11,DATA10B0            . 00038A 90AB CD80
+CVT0038E TM    DATA1014,X'20'            . 00038E 9120 CCE4
+         BZ    CVT0039A                  . 000392 4780 C06A
+         LA    7,1(,7)                   . 000396 4170 7001
+CVT0039A LA    3,1(,3)                   . 00039A 4130 3001
+         BCT   6,CVT00350                     LOOP                     *
+                                         . 00039E 4660 C020
+         TM    DATA1014,X'10'            . 0003A2 9110 CCE4
+         BZR   4                         . 0003A6 0784
+         TM    DATA1014,X'08'            . 0003A8 9108 CCE4
+         BZ    CVT003B2                  . 0003AC 4780 C082
+         LNR   11,11                     . 0003B0 11BB
+CVT003B2 ST    11,DATA10C4               . 0003B2 50B0 CD94
+         LM    10,11,DATA10B8            . 0003B6 98AB CD88
+         BR    4                         . 0003BA 07F4
+CVT003BC AL    11,DATA10B4               . 0003BC 5EB0 CD84
+         BC    12,CVT003CC               . 0003C0 47C0 C09C
+         AH    10,DATA0FAA               . 0003C4 4AA0 CC7A
+         BO    CVT003D2                  . 0003C8 4710 C0A2
+CVT003CC A     10,DATA10B0               . 0003CC 5AA0 CD80
+         BNOR  9                         . 0003D0 07E9
+CVT003D2 LM    10,11,DATA10B0            . 0003D2 98AB CD80
+         LA    8,1(,8)                   . 0003D6 4180 8001
+         B     CVT0038E                  . 0003DA 47F0 C05E
+CVT003DE CLI   0(3),X'40'                . 0003DE 9540 3000
+         BE    CVT0046E                  . 0003E2 4780 C13E
+         CLI   0(3),X'4B'                . 0003E6 954B 3000
+         BE    CVT0047E                  . 0003EA 4780 C14E
+         CLI   0(3),X'C5'                . 0003EE 95C5 3000
+         BE    CVT00490                  . 0003F2 4780 C160
+         CLI   0(3),X'C4'                . 0003F6 95C4 3000
+         BE    CVT00490                  . 0003FA 4780 C160
+         CLI   0(3),X'4E'                . 0003FE 954E 3000
+         BE    CVT004B2                  . 000402 4780 C182
+         CLI   0(3),X'50'                . 000406 9550 3000
+         BE    CVT004B2                  . 00040A 4780 C182
+         CLI   0(3),X'60'                . 00040E 9560 3000
+         BE    CVT004C6                  . 000412 4780 C196
+         MVI   DATA1148,X'F1'            . 000416 92F1 CE18
+         MVC   DATA115E(11),DATA1128     . 00041A D20A CE2E CDF8
+         MVI   DATA1123,X'D7'            . 000420 92D7 CDF3
+         LA    9,CVT00350                . 000424 4190 C020
+         STM   12,1,DATA1098             . 000428 90C1 CD68
+         DROP  12                        .
+CVT0042C BALR  12,0                           BASE                     *
+                                         . 00042C 05C0
+         USING *,12                      .
+         L     15,DATA0FDC               . 00042E 58F0 CBAE
+         DROP  12                        .
+         L     13,184(,15)               . 000432 58D0 F0B8
+         MVC   12(16,13),124(15)         . 000436 D20F D00C F07C
+         ST    13,200(,15)               . 00043C 50D0 F0C8
+         LA    13,196(,15)               . 000440 41D0 F0C4
+         LA    1,3298(,12)               . 000444 4110 CCE2
+         ST    3,12(,1)                  . 000448 5030 100C
+         MVI   12(1),X'80'               . 00044C 9280 100C
+         MVC   3398(1,12),0(3)           . 000450 D200 CD46 3000
+         L     15,2986(,12)              . 000456 58F0 CBAA
+         BALR  14,15                          CALL                     *
+                                         . 00045A 05EF
+         L     13,3318(,12)              . 00045C 58D0 CCF6
+         LTR   13,13                     . 000460 12DD
+         LM    12,1,3178(12)             . 000462 98C1 CC6A
+         BNZR  9                         . 000466 0779
+         MVI   0(3),X'F0'                . 000468 92F0 3000
+         BR    9                         . 00046C 07F9
+CVT0046E TM    3300(12),X'80'            . 00046E 9180 CCE4
+         BZ    106(,12)                  . 000472 4780 C06A
+         MVI   3475(12),X'00'            . 000476 9200 CD93
+         B     58(,12)                   . 00047A 47F0 C03A
+CVT0047E TM    3300(12),X'30'            . 00047E 9130 CCE4
+         BC    5,230(,12)                . 000482 4750 C0E6
+         OI    3300(12),X'A0'            . 000486 96A0 CCE4
+         SR    7,7                       . 00048A 1B77
+         B     106(,12)                  . 00048C 47F0 C06A
+CVT00490 TM    3300(12),X'10'            . 000490 9110 CCE4
+         BO    230(,12)                  . 000494 4710 C0E6
+         OI    3300(12),X'10'            . 000498 9610 CCE4
+         MVC   3464(8,12),3456(12)       . 00049C D207 CD88 CD80
+         SR    10,10                     . 0004A2 1BAA
+         SR    11,11                     . 0004A4 1BBB
+         STM   10,11,3456(12)            . 0004A6 90AB CD80
+         NI    3300(12),X'DF'            . 0004AA 94DF CCE4
+         B     106(,12)                  . 0004AE 47F0 C06A
+CVT004B2 TM    3300(12),X'80'            . 0004B2 9180 CCE4
+         BZ    106(,12)                  . 0004B6 4780 C06A
+         TM    3300(12),X'10'            . 0004BA 9110 CCE4
+         BO    106(,12)                  . 0004BE 4710 C06A
+         B     360(,12)                  . 0004C2 47F0 C168
+CVT004C6 TM    3300(12),X'80'            . 0004C6 9180 CCE4
+         BO    422(,12)                  . 0004CA 4710 C1A6
+         OI    3300(12),X'40'            . 0004CE 9640 CCE4
+         B     106(,12)                  . 0004D2 47F0 C06A
+         OI    3300(12),X'08'            . 0004D6 9608 CCE4
+         B     394(,12)                  . 0004DA 47F0 C18A
+         USING CVT004DE,1                .
+CVT004DE STM   2,13,DATA0FE0             . 0004DE 902D 1B02
+CVT004E2 STD   2,DATA1088                . 0004E2 6020 1BAA
+         STD   4,DATA1090                . 0004E6 6040 1BB2
+         LR    13,15                     . 0004EA 18DF
+         L     15,DATA0FDC               . 0004EC 58F0 1AFE
+         EX    0,114(,15)                . 0004F0 4400 F072
+         L     9,DATA101C                . 0004F4 5890 1B3E
+         BALR  4,9                            CALL                     *
+                                         . 0004F8 0549
+         LTR   11,11                     . 0004FA 12BB
+         BNZ   CVT0050C                  . 0004FC 4770 102E
+         LTR   10,10                     . 000500 12AA
+         BNZ   CVT0050C                  . 000502 4770 102E
+         SDR   2,2                       . 000506 2B22
+         B     CVT005D8                  . 000508 47F0 10FA
+CVT0050C STM   10,11,DATA10B8            . 00050C 90AB 1BDA
+         TM    DATA10B8,X'FF'            . 000510 91FF 1BDA
+         BZ    CVT00540                  . 000514 4780 1062
+         SRDL  10,4                      . 000518 8CA0 0004
+         STM   10,11,DATA10B8            . 00051C 90AB 1BDA
+         TM    DATA10B8,X'0F'            . 000520 910F 1BDA
+         BZ    CVT00538                  . 000524 4780 105A
+         SRDL  10,4                      . 000528 8CA0 0004
+         STM   10,11,DATA10B8            . 00052C 90AB 1BDA
+         MVI   DATA10B8,X'50'            . 000530 9250 1BDA
+         B     CVT00544                  . 000534 47F0 1066
+CVT00538 MVI   DATA10B8,X'4F'            . 000538 924F 1BDA
+         B     CVT00544                  . 00053C 47F0 1066
+CVT00540 MVI   DATA10B8,X'4E'            . 000540 924E 1BDA
+CVT00544 LD    2,DATA0E30                . 000544 6820 1952
+         AD    2,DATA10B8                . 000548 6A20 1BDA
+         SR    8,7                       . 00054C 1B87
+         A     8,DATA10C4                . 00054E 5A80 1BE6
+         TM    DATA1014,X'10'            . 000552 9110 1B36
+         BO    CVT00578                  . 000556 4710 109A
+         MVC   DATA10C3(1),3(5)          . 00055A D200 1BE5 5003
+         TM    DATA10C3,X'80'            . 000560 9180 1BE5
+         BZ    CVT00574                  . 000564 4780 1096
+         NI    DATA10C3,X'7F'            . 000568 947F 1BE5
+         A     8,DATA10C0                . 00056C 5A80 1BE2
+         B     CVT00578                  . 000570 47F0 109A
+CVT00574 S     8,DATA10C0                . 000574 5B80 1BE2
+CVT00578 LTR   8,8                       . 000578 1288
+         BC    10,CVT00582               . 00057A 47A0 10A4
+         OI    DATA1014,X'04'            . 00057E 9604 1B36
+CVT00582 LPR   11,8                      . 000582 10B8
+         CH    11,DATA10C8               . 000584 49B0 1BEA
+         BC    12,CVT005AA               . 000588 47C0 10CC
+         TM    DATA1014,X'04'            . 00058C 9104 1B36
+         BO    CVT0059A                  . 000590 4710 10BC
+CVT00594 SDR   2,2                       . 000594 2B22
+         B     CVT005D8                  . 000596 47F0 10FA
+CVT0059A SH    11,DATA10CA               . 00059A 4BB0 1BEC
+         CH    11,DATA10C8               . 00059E 49B0 1BEA
+         BH    CVT00594                  . 0005A2 4720 10B6
+         DD    2,DATA0DF0                . 0005A6 6D20 1912
+CVT005AA SR    10,10                     . 0005AA 1BAA
+         D     10,DATA10EC               . 0005AC 5DA0 1C0E
+         SLDA  10,2                      . 0005B0 8FA0 0002
+         SLA   11,1                      . 0005B4 8BB0 0001
+         SDR   4,4                       . 0005B8 2B44
+         LE    4,CVT00DC4(10)            . 0005BA 784A 18E6
+         LTR   11,11                     . 0005BE 12BB
+         BZ    CVT005C8                  . 0005C0 4780 10EA
+         MD    4,DATA0DF0(11)            . 0005C4 6C4B 1912
+CVT005C8 TM    DATA1014,X'04'            . 0005C8 9104 1B36
+         BZ    CVT005D6                  . 0005CC 4780 10F8
+         DDR   2,4                       . 0005D0 2D24
+         B     CVT005D8                  . 0005D2 47F0 10FA
+CVT005D6 MDR   2,4                       . 0005D6 2C24
+CVT005D8 TM    DATA1014,X'40'            . 0005D8 9140 1B36
+         BZ    CVT005E2                  . 0005DC 4780 1104
+         LNDR  2,2                       . 0005E0 2122
+CVT005E2 TM    0(5),X'04'                . 0005E2 9104 5000
+         MVI   INT6SWCH,X'FF'            . 0005E6 92FF 1B3D
+         BZ    CVT0060E                  . 0005EA 4780 1130
+         STE   2,0(,2)                   . 0005EE 7020 2000
+CVT005F2 EX    0,118(,15)                . 0005F2 4400 F076
+         MVI   INT6SWCH,X'00'            . 0005F6 9200 1B3D
+         LR    15,13                     . 0005FA 18FD
+         LD    2,DATA1088                . 0005FC 6820 1BAA
+         LD    4,DATA1090                . 000600 6840 1BB2
+         LM    2,13,DATA0FE0             . 000604 982D 1B02
+         LR    1,0                       . 000608 1810
+         B     CVT004E2                  . 00060A 47F0 1004
+CVT0060E STD   2,0(,2)                   . 00060E 6020 2000
+         B     CVT005F2                  . 000612 47F0 1114
+         USING FCVIOUTP,1                .
+FCVIOUTP STM   2,7,DATA0FE0              . 000616 9027 19CA
+         LR    5,0                       . 00061A 1850
+         SR    6,6                       . 00061C 1B66
+         IC    6,1(,5)                   . 00061E 4360 5001
+         AR    3,6                       . 000622 1A36
+         MVI   INT6SWCH,X'FF'            . 000624 92FF 1A05
+         TM    0(5),X'05'                . 000628 9105 5000
+         BZ    CVT00640                  . 00062C 4780 102A
+         TM    0(5),X'04'                . 000630 9104 5000
+         BZ    CVT00698                  . 000634 4780 1082
+         L     7,0(,2)                   . 000638 5870 2000
+         B     CVT00644                  . 00063C 47F0 102E
+CVT00640 LH    7,0(,2)                   . 000640 4870 2000
+CVT00644 MVI   DATA1014,X'40'            . 000644 9240 19FE
+         MVI   INT6SWCH,X'00'            . 000648 9200 1A05
+         LTR   7,7                       . 00064C 1277
+         BZ    CVT00684                  . 00064E 4780 106E
+         BP    CVT0065A                  . 000652 4720 1044
+         MVI   DATA1014,X'60'            . 000656 9260 19FE
+CVT0065A CVD   7,DATA10D0                . 00065A 4E70 1ABA
+         UNPK  DATA10D0(15),DATA10D0(8)                                *
+                                         . 00065E F3E7 1ABA 1ABA
+         OI    DATA10DE,X'F0'            . 000664 96F0 1AC8
+         LA    2,DATA10DF                . 000668 4120 1AC9
+         LA    5,DATA10D0                . 00066C 4150 1ABA
+         LA    4,15                      . 000670 4140 000F
+CVT00674 CLI   0(5),X'F0'                . 000674 95F0 5000
+         BNE   CVT006A2                  . 000678 4770 108C
+         LA    5,1(,5)                   . 00067C 4150 5001
+         BCT   4,CVT00674                     LOOP                     *
+                                         . 000680 4640 105E
+CVT00684 BCTR  3,0                            DECREMENT                *
+                                         . 000684 0630
+         MVI   0(3),X'F0'                . 000686 92F0 3000
+         BCT   6,CVT006C2                     LOOP                     *
+                                         . 00068A 4660 10AC
+CVT0068E LM    2,7,DATA0FE0              . 00068E 9827 19CA
+         DROP  1                         .
+         LR    1,0                       . 000692 1810
+         B     2(,1)                     . 000694 47F0 1002
+         USING IHCFCVTH+1558,1           .
+CVT00698 SR    7,7                       . 000698 1B77
+         IC    7,0(,2)                   . 00069A 4370 2000
+         B     CVT00644                  . 00069E 47F0 102E
+CVT006A2 CR    6,4                       . 0006A2 1964
+         BL    CVT006E4                  . 0006A4 4740 10CE
+         BE    CVT006DC                  . 0006A8 4780 10C6
+CVT006AC BCTR  2,0                            DECREMENT                *
+                                         . 0006AC 0620
+         BCTR  3,0                            DECREMENT                *
+                                         . 0006AE 0630
+         MVC   0(1,3),0(2)               . 0006B0 D200 3000 2000
+         BCT   6,CVT006BE                     LOOP                     *
+                                         . 0006B6 4660 10A8
+         B     CVT0068E                  . 0006BA 47F0 1078
+CVT006BE BCT   4,CVT006AC                     LOOP                     *
+                                         . 0006BE 4640 1096
+CVT006C2 BCTR  3,0                            DECREMENT                *
+                                         . 0006C2 0630
+         MVC   0(1,3),DATA1014           . 0006C4 D200 3000 19FE
+CVT006CA BCT   6,CVT006D2                     LOOP                     *
+                                         . 0006CA 4660 10BC
+         B     CVT0068E                  . 0006CE 47F0 1078
+CVT006D2 BCTR  3,0                            DECREMENT                *
+                                         . 0006D2 0630
+         MVI   0(3),X'40'                . 0006D4 9240 3000
+         B     CVT006CA                  . 0006D8 47F0 10B4
+CVT006DC CLI   DATA1014,X'60'            . 0006DC 9560 19FE
+         BNE   CVT006AC                  . 0006E0 4770 1096
+CVT006E4 L     3,DATA0FE4                . 0006E4 5830 19CE
+CVT006E8 MVI   0(3),X'5C'                . 0006E8 925C 3000
+         LA    3,1(,3)                   . 0006EC 4130 3001
+         BCT   6,CVT006E8                     LOOP                     *
+                                         . 0006F0 4660 10D2
+         B     CVT0068E                  . 0006F4 47F0 1078
+         USING CVT006F8,1                .
+CVT006F8 STM   2,13,DATA0FE0             . 0006F8 902D 18E8
+CVT006FC STD   6,DATA1098                . 0006FC 6060 19A0
+         MVI   DATA1014,X'02'            . 000700 9202 191C
+         BAL   4,CVT00716                     CALL                     *
+                                         . 000704 4540 101E
+         LD    6,DATA1098                . 000708 6860 19A0
+         LM    2,13,DATA0FE0             . 00070C 982D 18E8
+         LR    1,0                       . 000710 1810
+         B     CVT006FC                  . 000712 47F0 1004
+         DROP  1                         .
+CVT00716 BALR  12,0                           BASE                     *
+                                         . 000716 05C0
+         USING *,12                      .
+         LR    5,0                       . 000718 1850
+         SR    6,6                       . 00071A 1B66
+         SR    7,7                       . 00071C 1B77
+         SR    8,8                       . 00071E 1B88
+         MVI   INT6SWCH,X'FF'            . 000720 92FF C903
+         TM    0(5),X'04'                . 000724 9104 5000
+         BZ    CVT00736                  . 000728 4780 C01E
+         SDR   6,6                       . 00072C 2B66
+         LE    6,0(,2)                   . 00072E 7860 2000
+         B     CVT0073A                  . 000732 47F0 C022
+CVT00736 LD    6,0(,2)                   . 000736 6860 2000
+CVT0073A STD   6,DATA10B0                . 00073A 6060 C998
+         MVI   INT6SWCH,X'00'            . 00073E 9200 C903
+         TM    DATA10B0,X'80'            . 000742 9180 C998
+         BZ    CVT00756                  . 000746 4780 C03E
+         OI    DATA1014,X'40'            . 00074A 9640 C8FC
+         NI    DATA10B0,X'7F'            . 00074E 947F C998
+         LD    6,DATA10B0                . 000752 6860 C998
+CVT00756 LTDR  6,6                       . 000756 2266
+         BZ    CVT00AB8                  . 000758 4780 C3A0
+         LR    9,15                      . 00075C 189F
+         L     15,DATA0FDC               . 00075E 58F0 C8C4
+         EX    0,114(,15)                . 000762 4400 F072
+         IC    6,DATA10B0                . 000766 4360 C998
+         N     6,DATA0F80                . 00076A 5460 C868
+         TM    DATA10B0,X'08'            . 00076E 9108 C998
+         BZ    CVT0077A                  . 000772 4780 C062
+         LA    6,8(6)                    . 000776 4166 0008
+CVT0077A LA    10,DATA0E58(6)            . 00077A 41A6 C740
+         MD    6,0(,10)                  . 00077E 6C60 A000
+         SRA   6,2                       . 000782 8A60 0002
+         LA    10,DATA0F88(6)            . 000786 41A6 C870
+         AH    8,0(10)                   . 00078A 4A8A 0000
+         STE   6,DATA10B0                . 00078E 7060 C998
+CVT00792 CLI   DATA10B0,X'48'            . 000792 9548 C998
+         BC    10,CVT00842               . 000796 47A0 C12A
+         CLI   DATA10B0,X'39'            . 00079A 9539 C998
+         BC    12,CVT0084A               . 00079E 47C0 C132
+         CLI   DATA10B0,X'3C'            . 0007A2 953C C998
+         BE    CVT0085E                  . 0007A6 4780 C146
+         CLI   DATA10B0,X'45'            . 0007AA 9545 C998
+         BE    CVT00852                  . 0007AE 4780 C13A
+         IC    6,DATA10B0                . 0007B2 4360 C998
+         N     6,DATA0F84                . 0007B6 5460 C86C
+         SLL   6,3                       . 0007BA 8960 0003
+CVT007BE LA    10,DATA0ED8(6)            . 0007BE 41A6 C7C0
+         MD    6,0(,10)                  . 0007C2 6C60 A000
+         SRA   6,2                       . 0007C6 8A60 0002
+         LA    10,DATA0FA8(6)            . 0007CA 41A6 C890
+         AH    8,0(10)                   . 0007CE 4A8A 0000
+CVT007D2 STE   6,DATA10B0                . 0007D2 7060 C998
+         CLI   DATA10B0,X'40'            . 0007D6 9540 C998
+         BNE   CVT00792                  . 0007DA 4770 C07A
+         CH    8,DATA10C8                . 0007DE 4980 C9B0
+         BH    CVT007FA                  . 0007E2 4720 C0E2
+         AD    6,DATA0F70                . 0007E6 6A60 C858
+         CD    6,DATA0ED8                . 0007EA 6960 C7C0
+         BL    CVT007FA                  . 0007EE 4740 C0E2
+         MD    6,DATA0EE0                . 0007F2 6C60 C7C8
+         AH    8,DATA0FAA                . 0007F6 4A80 C892
+CVT007FA MD    6,DATA0F30                . 0007FA 6C60 C818
+         LA    6,24                      . 0007FE 4160 0018
+CVT00802 AW    6,DATA0F68                . 000802 6E60 C850
+         STE   6,DATA10B0                . 000806 7060 C998
+         MVI   DATA10B0,X'00'            . 00080A 9200 C998
+         L     10,DATA10B0               . 00080E 58A0 C998
+         CVD   10,DATA0E38(6)            . 000812 4EA6 C720
+         SH    6,DATA0FB6                . 000816 4B60 C89E
+         BZ    CVT0089A                  . 00081A 4780 C182
+         LA    11,DATA0E38(6)            . 00081E 41B6 C720
+         NI    15(11),X'0F'              . 000822 940F B00F
+         CVB   10,DATA0E40(6)            . 000826 4FA6 C728
+         ST    10,DATA0E38(6)            . 00082A 50A6 C720
+         ST    7,DATA0E3C(6)             . 00082E 5076 C724
+         MVI   0(11),X'46'               . 000832 9246 B000
+         SD    6,DATA0E38(6)             . 000836 6B66 C720
+         MD    6,DATA0F38                . 00083A 6C60 C820
+         B     CVT00802                  . 00083E 47F0 C0EA
+CVT00842 LA    6,64                      . 000842 4160 0040
+         B     CVT007BE                  . 000846 47F0 C0A6
+CVT0084A LA    6,72                      . 00084A 4160 0048
+         B     CVT007BE                  . 00084E 47F0 C0A6
+CVT00852 TM    DATA10B1,X'80'            . 000852 9180 C999
+         BZ    CVT0086A                  . 000856 4780 C152
+         B     CVT00876                  . 00085A 47F0 C15E
+CVT0085E TM    DATA10B1,X'80'            . 00085E 9180 C999
+         BZ    CVT00882                  . 000862 4780 C16A
+         B     CVT0088E                  . 000866 47F0 C176
+CVT0086A MD    6,DATA0F58                . 00086A 6C60 C840
+         AH    8,DATA0FB2                . 00086E 4A80 C89A
+         B     CVT007D2                  . 000872 47F0 C0BA
+CVT00876 MD    6,DATA0F00                . 000876 6C60 C7E8
+         AH    8,DATA0FC8                . 00087A 4A80 C8B0
+         B     CVT007D2                  . 00087E 47F0 C0BA
+CVT00882 MD    6,DATA0F60                . 000882 6C60 C848
+         SH    8,DATA0FC8                . 000886 4B80 C8B0
+         B     CVT007D2                  . 00088A 47F0 C0BA
+CVT0088E MD    6,DATA0F38                . 00088E 6C60 C820
+         SH    8,DATA0FB2                . 000892 4B80 C89A
+         B     CVT007D2                  . 000896 47F0 C0BA
+CVT0089A UNPK  DATA10D0(7),DATA0E54(4)   . 00089A F363 C9B8 C73C
+         UNPK  DATA10D6(6),DATA0E4C(4)   . 0008A0 F353 C9BE C734
+         UNPK  DATA10DB(6),DATA0E44(4)   . 0008A6 F353 C9C3 C72C
+         EX    0,118(,15)                . 0008AC 4400 F076
+         LR    15,9                      . 0008B0 18F9
+         LA    9,DATA10D0                . 0008B2 4190 C9B8
+         LA    13,16                     . 0008B6 41D0 0010
+CVT008BA CLI   0(9),X'F0'                . 0008BA 95F0 9000
+         BNE   CVT008D0                  . 0008BE 4770 C1B8
+         SH    8,DATA0FAA                . 0008C2 4B80 C892
+         LA    9,1(,9)                   . 0008C6 4190 9001
+         BCTR  13,0                           DECREMENT                *
+                                         . 0008CA 06D0
+         B     CVT008BA                  . 0008CC 47F0 C1A2
+CVT008D0 SR    2,2                       . 0008D0 1B22
+         ST    2,DATA10C4                . 0008D2 5020 C9AC
+         TM    3(5),X'FF'                . 0008D6 91FF 5003
+         BZ    CVT00900                  . 0008DA 4780 C1E8
+         MVC   DATA10C7(1),3(5)          . 0008DE D200 C9AF 5003
+         TM    DATA10C7,X'80'            . 0008E4 9180 C9AF
+         BZ    CVT008F8                  . 0008E8 4780 C1E0
+         NI    DATA10C7,X'7F'            . 0008EC 947F C9AF
+         S     2,DATA10C4                . 0008F0 5B20 C9AC
+         B     CVT008FC                  . 0008F4 47F0 C1E4
+CVT008F8 A     2,DATA10C4                . 0008F8 5A20 C9AC
+CVT008FC ST    2,DATA10C4                . 0008FC 5020 C9AC
+CVT00900 TM    DATA1014,X'01'            . 000900 9101 C8FC
+         BO    CVT0090A                  . 000904 4710 C1F2
+         AR    2,8                       . 000908 1A28
+CVT0090A IC    6,1(,5)                   . 00090A 4360 5001
+         IC    7,2(,5)                   . 00090E 4370 5002
+         TM    DATA10FA,X'FF'            . 000912 91FF C9E2
+         BZ    CVT0091C                  . 000916 4780 C204
+         SR    7,2                       . 00091A 1B72
+CVT0091C LR    10,2                      . 00091C 18A2
+         AR    10,7                      . 00091E 1AA7
+         LTR   10,10                     . 000920 12AA
+         BM    CVT00988                  . 000922 4740 C270
+         CH    10,DATA10CC               . 000926 49A0 C9B4
+         BC    10,CVT00988               . 00092A 47A0 C270
+         AR    10,9                      . 00092E 1AA9
+         CLI   0(10),X'F5'               . 000930 95F5 A000
+         BL    CVT00988                  . 000934 4740 C270
+CVT00938 BCTR  10,0                           DECREMENT                *
+                                         . 000938 06A0
+         CR    10,9                      . 00093A 19A9
+         BL    CVT00962                  . 00093C 4740 C24A
+         CLI   0(10),X'F9'               . 000940 95F9 A000
+         BE    CVT0095A                  . 000944 4780 C242
+         SR    11,11                     . 000948 1BBB
+         IC    11,0(,10)                 . 00094A 43B0 A000
+         LA    11,1(,11)                 . 00094E 41B0 B001
+         STC   11,0(,10)                 . 000952 42B0 A000
+         B     CVT00988                  . 000956 47F0 C270
+CVT0095A MVI   0(10),X'F0'               . 00095A 92F0 A000
+         B     CVT00938                  . 00095E 47F0 C220
+CVT00962 MVI   0(10),X'F1'               . 000962 92F1 A000
+         LR    9,10                      . 000966 189A
+         LA    13,1(,13)                 . 000968 41D0 D001
+         AH    8,DATA0FAA                . 00096C 4A80 C892
+         TM    DATA1014,X'01'            . 000970 9101 C8FC
+         BO    CVT00988                  . 000974 4710 C270
+         AH    2,DATA0FAA                . 000978 4A20 C892
+         TM    DATA10FA,X'FF'            . 00097C 91FF C9E2
+         BZ    CVT00988                  . 000980 4780 C270
+         SH    7,DATA0FAA                . 000984 4B70 C892
+CVT00988 LA    10,1(,7)                  . 000988 41A0 7001
+         LTR   2,2                       . 00098C 1222
+         BC    12,CVT00994               . 00098E 47C0 C27C
+         AR    10,2                      . 000992 1AA2
+CVT00994 TM    DATA1014,X'02'            . 000994 9102 C8FC
+         BO    CVT009A0                  . 000998 4710 C288
+         LA    10,4(,10)                 . 00099C 41A0 A004
+CVT009A0 SR    6,10                      . 0009A0 1B6A
+         BM    CVT00A90                  . 0009A2 4740 C378
+         BZ    CVT00A88                  . 0009A6 4780 C370
+CVT009AA AR    3,6                       . 0009AA 1A36
+         ST    3,DATA10E0                . 0009AC 5030 C9C8
+         LTR   2,2                       . 0009B0 1222
+         BZ    CVT009F2                  . 0009B2 4780 C2DA
+         BP    CVT009E8                  . 0009B6 4720 C2D0
+         LPR   2,2                       . 0009BA 1022
+         MVI   0(3),X'4B'                . 0009BC 924B 3000
+         LA    3,1(,3)                   . 0009C0 4130 3001
+         OI    DATA1014,X'20'            . 0009C4 9620 C8FC
+         LTR   7,7                       . 0009C8 1277
+         BC    12,CVT00A3C               . 0009CA 47C0 C324
+CVT009CE MVI   0(3),X'F0'                . 0009CE 92F0 3000
+         LA    3,1(,3)                   . 0009D2 4130 3001
+         BCT   7,CVT009DE                     LOOP                     *
+                                         . 0009D6 4670 C2C6
+         B     CVT00A3C                  . 0009DA 47F0 C324
+CVT009DE BCT   2,CVT009CE                     LOOP                     *
+                                         . 0009DE 4620 C2B6
+         LR    11,7                      . 0009E2 18B7
+         B     CVT00A06                  . 0009E4 47F0 C2EE
+CVT009E8 OI    DATA1014,X'04'            . 0009E8 9604 C8FC
+         LR    11,2                      . 0009EC 18B2
+         B     CVT00A06                  . 0009EE 47F0 C2EE
+CVT009F2 MVI   0(3),X'4B'                . 0009F2 924B 3000
+         LA    3,1(,3)                   . 0009F6 4130 3001
+         OI    DATA1014,X'20'            . 0009FA 9620 C8FC
+         LTR   7,7                       . 0009FE 1277
+         BC    12,CVT00A3C               . 000A00 47C0 C324
+         LR    11,7                      . 000A04 18B7
+CVT00A06 LTR   13,13                     . 000A06 12DD
+         BC    12,CVT00A28               . 000A08 47C0 C310
+CVT00A0C MVC   0(1,3),0(9)               . 000A0C D200 3000 9000
+         LA    3,1(,3)                   . 000A12 4130 3001
+         LA    9,1(,9)                   . 000A16 4190 9001
+         BCT   11,CVT00A24                    LOOP                     *
+                                         . 000A1A 46B0 C30C
+         BCTR  13,0                           DECREMENT                *
+                                         . 000A1E 06D0
+         B     CVT00A34                  . 000A20 47F0 C31C
+CVT00A24 BCT   13,CVT00A0C                    LOOP                     *
+                                         . 000A24 46D0 C2F4
+CVT00A28 MVI   0(3),X'F0'                . 000A28 92F0 3000
+         LA    3,1(,3)                   . 000A2C 4130 3001
+         BCT   11,CVT00A28                    LOOP                     *
+                                         . 000A30 46B0 C310
+CVT00A34 TM    DATA1014,X'20'            . 000A34 9120 C8FC
+         BZ    CVT009F2                  . 000A38 4780 C2DA
+CVT00A3C LTR   6,6                       . 000A3C 1266
+         BZR   4                         . 000A3E 0784
+         L     3,DATA10E0                . 000A40 5830 C9C8
+         TM    DATA1014,X'04'            . 000A44 9104 C8FC
+         BO    CVT00A68                  . 000A48 4710 C350
+         BCTR  3,0                            DECREMENT                *
+                                         . 000A4C 0630
+         TM    DATA1014,X'40'            . 000A4E 9140 C8FC
+         BZ    CVT00A5E                  . 000A52 4780 C346
+         CH    6,DATA0FAA                . 000A56 4960 C892
+         BE    CVT00A72                  . 000A5A 4780 C35A
+CVT00A5E MVI   0(3),X'F0'                . 000A5E 92F0 3000
+         BCT   6,CVT00A68                     LOOP                     *
+                                         . 000A62 4660 C350
+         BR    4                         . 000A66 07F4
+CVT00A68 TM    DATA1014,X'40'            . 000A68 9140 C8FC
+         BZ    CVT00A7C                  . 000A6C 4780 C364
+         BCTR  3,0                            DECREMENT                *
+                                         . 000A70 0630
+CVT00A72 MVI   0(3),X'60'                . 000A72 9260 3000
+         BCT   6,CVT00A7C                     LOOP                     *
+                                         . 000A76 4660 C364
+         BR    4                         . 000A7A 07F4
+CVT00A7C BCTR  3,0                            DECREMENT                *
+                                         . 000A7C 0630
+         MVI   0(3),X'40'                . 000A7E 9240 3000
+         BCT   6,CVT00A7C                     LOOP                     *
+                                         . 000A82 4660 C364
+         BR    4                         . 000A86 07F4
+CVT00A88 TM    DATA1014,X'40'            . 000A88 9140 C8FC
+         BZ    CVT009AA                  . 000A8C 4780 C292
+CVT00A90 AR    6,10                      . 000A90 1A6A
+         TM    DATA10FA,X'FF'            . 000A92 91FF C9E2
+         BZ    CVT00A9E                  . 000A96 4780 C386
+         AH    6,DATA0FB0                . 000A9A 4A60 C898
+CVT00A9E MVI   0(3),X'5C'                . 000A9E 925C 3000
+         LA    3,1(,3)                   . 000AA2 4130 3001
+         BCT   6,CVT00A9E                     LOOP                     *
+                                         . 000AA6 4660 C386
+CVT00AAA LD    6,DATA1098                . 000AAA 6860 C980
+         LM    2,13,DATA0FE0             . 000AAE 982D C8C8
+         LR    1,0                       . 000AB2 1810
+         B     4(,1)                     . 000AB4 47F0 1004
+CVT00AB8 IC    6,1(,5)                   . 000AB8 4360 5001
+         IC    7,2(,5)                   . 000ABC 4370 5002
+CVT00AC0 MVI   0(3),X'40'                . 000AC0 9240 3000
+         LA    3,1(,3)                   . 000AC4 4130 3001
+         BCT   6,CVT00AC0                     LOOP                     *
+                                         . 000AC8 4660 C3A8
+         LA    13,3                      . 000ACC 41D0 0003
+         LTR   7,7                       . 000AD0 1277
+         BNZ   CVT00ADA                  . 000AD2 4770 C3C2
+         LA    13,2                      . 000AD6 41D0 0002
+CVT00ADA LA    10,3(,7)                  . 000ADA 41A0 7003
+         TM    DATA1014,X'01'            . 000ADE 9101 C8FC
+         BZ    CVT00AEA                  . 000AE2 4780 C3D2
+         LA    10,4(,10)                 . 000AE6 41A0 A004
+CVT00AEA LA    9,DATA110C                . 000AEA 4190 C9F4
+         SR    3,10                      . 000AEE 1B3A
+CVT00AF0 C     3,DATA0FE4                . 000AF0 5930 C8CC
+         BC    10,CVT00B10               . 000AF4 47A0 C3F8
+         LA    3,1(,3)                   . 000AF8 4130 3001
+         LA    9,1(,9)                   . 000AFC 4190 9001
+         BCT   13,CVT00AF0                    LOOP                     *
+                                         . 000B00 46D0 C3D8
+         IC    6,1(,5)                   . 000B04 4360 5001
+         L     3,DATA0FE4                . 000B08 5830 C8CC
+         B     CVT00A9E                  . 000B0C 47F0 C386
+CVT00B10 EX    13,DATA10F4               . 000B10 44D0 C9DC
+         B     CVT00AAA                  . 000B14 47F0 C392
+         DROP  12                        .
+         USING FCVEOUTP,1                .
+FCVEOUTP STM   2,13,DATA0FE0             . 000B18 902D 14C8
+CVT00B1C STD   6,DATA1098                . 000B1C 6060 1580
+         MVI   DATA1014,X'01'            . 000B20 9201 14FC
+         L     9,DATA1020                . 000B24 5890 1508
+         BALR  4,9                            CALL                     *
+                                         . 000B28 0549
+         L     3,DATA10E0                . 000B2A 5830 15C8
+         AR    3,10                      . 000B2E 1A3A
+         SH    3,DATA0FB0                . 000B30 4B30 1498
+         TM    0(5),X'04'                . 000B34 9104 5000
+         BZ    CVT00B44                  . 000B38 4780 102C
+         MVI   0(3),X'C5'                . 000B3C 92C5 3000
+         B     CVT00B48                  . 000B40 47F0 1030
+CVT00B44 MVI   0(3),X'C4'                . 000B44 92C4 3000
+CVT00B48 S     8,DATA10C4                . 000B48 5B80 15AC
+         LTR   8,8                       . 000B4C 1288
+         BM    CVT00B5A                  . 000B4E 4740 1042
+         MVI   1(3),X'40'                . 000B52 9240 3001
+         B     CVT00B60                  . 000B56 47F0 1048
+CVT00B5A MVI   1(3),X'60'                . 000B5A 9260 3001
+         LPR   8,8                       . 000B5E 1088
+CVT00B60 CVD   8,DATA10D0                . 000B60 4E80 15B8
+         UNPK  DATA10D0(2),DATA10D6(2)   . 000B64 F311 15B8 15BE
+         OI    DATA10D1,X'F0'            . 000B6A 96F0 15B9
+         MVC   2(2,3),DATA10D0           . 000B6E D201 3002 15B8
+         LD    6,DATA1098                . 000B74 6860 1580
+         LM    2,13,DATA0FE0             . 000B78 982D 14C8
+         LR    1,0                       . 000B7C 1810
+         B     CVT00B1C                  . 000B7E 47F0 1004
+         DROP  1                         .
+CVT00B82 STM   0,7,1202(1)               . 000B82 9007 14B2
+         STD   4,1310(,1)                . 000B86 6040 151E
+         STD   6,1318(,1)                . 000B8A 6060 1526
+         BALR  4,0                            BASE                     *
+                                         . 000B8E 0540
+         USING *,4                       .
+         LR    5,0                       . 000B90 1850
+         MVI   INT6SWCH,X'FF'            . 000B92 92FF 448B
+         TM    0(5),X'04'                . 000B96 9104 5000
+         BZ    CVT00BA8                  . 000B9A 4780 4018
+         SDR   6,6                       . 000B9E 2B66
+         LE    6,0(,2)                   . 000BA0 7860 2000
+         B     CVT00BAC                  . 000BA4 47F0 401C
+CVT00BA8 LD    6,0(,2)                   . 000BA8 6860 2000
+CVT00BAC LPDR  6,6                       . 000BAC 2066
+         CD    6,DATA0EE0                . 000BAE 6960 4350
+         MVI   INT6SWCH,X'00'            . 000BB2 9200 448B
+         BL    CVT00C36                  . 000BB6 4740 40A6
+         SR    7,7                       . 000BBA 1B77
+         IC    7,2(,5)                   . 000BBC 4370 5002
+         SR    6,6                       . 000BC0 1B66
+         D     6,DATA10EC                . 000BC2 5D60 455C
+         SLDA  6,2                       . 000BC6 8F60 0002
+         SLA   7,1                       . 000BCA 8B70 0001
+         SDR   4,4                       . 000BCE 2B44
+         LE    4,CVT00DC4(6)             . 000BD0 7846 4234
+         LTR   7,7                       . 000BD4 1277
+         BZ    CVT00BDE                  . 000BD6 4780 404E
+         MD    4,DATA0DF0(7)             . 000BDA 6C47 4260
+CVT00BDE CDR   6,4                       . 000BDE 2964
+         BH    CVT00C36                  . 000BE0 4720 40A6
+         MVC   DATA0C2A(3),0(5)          . 000BE4 D202 409A 5000
+         MVI   DATA10FA,X'FF'            . 000BEA 92FF 456A
+         TM    DATA10FB,X'FF'            . 000BEE 91FF 456B
+         BO    CVT00C24                  . 000BF2 4710 4094
+         SR    6,6                       . 000BF6 1B66
+         IC    6,DATA0C2B                . 000BF8 4360 409B
+         SH    6,DATA0FB0                . 000BFC 4B60 4420
+         BP    CVT00C18                  . 000C00 4720 4088
+         AH    6,DATA0FB0                . 000C04 4A60 4420
+CVT00C08 MVI   0(3),X'5C'                . 000C08 925C 3000
+         LA    3,1(,3)                   . 000C0C 4130 3001
+         BCT   6,CVT00C08                     LOOP                     *
+                                         . 000C10 4660 4078
+         B     CVT00C2E                  . 000C14 47F0 409E
+CVT00C18 STC   6,DATA0C2B                . 000C18 4260 409B
+         AR    6,3                       . 000C1C 1A63
+         MVC   0(4,6),DATA10F0           . 000C1E D203 6000 4560
+CVT00C24 L     1,DATA102C                . 000C24 5810 449C
+         BALR  0,1                            CALL                     *
+                                         . 000C28 0501
+DATA0C2A DC    X'00'                     . 000C2A 00
+DATA0C2B DC    X'000000'                 . 000C2B 000000
+CVT00C2E MVI   DATA10FA,X'00'            . 000C2E 9200 456A
+         B     CVT00C46                  . 000C32 47F0 40B6
+CVT00C36 MVC   DATA0C42(4),0(5)          . 000C36 D203 40B2 5000
+         L     1,DATA1030                . 000C3C 5810 44A0
+         BALR  0,1                            CALL                     *
+                                         . 000C40 0501
+DATA0C42 DC    X'00000000'               . 000C42 00000000
+CVT00C46 LD    4,DATA10A0                . 000C46 6840 4510
+         LD    6,DATA10A8                . 000C4A 6860 4518
+         LM    0,7,DATA1034              . 000C4E 9807 44A4
+         LR    1,0                       . 000C52 1810
+         B     4(,1)                     . 000C54 47F0 1004
+         DROP  4                         .
+         USING CVT00C58,1                .
+CVT00C58 STM   2,9,DATA1054              . 000C58 9029 13FC
+CVT00C5C LR    5,0                       . 000C5C 1850
+         SR    4,4                       . 000C5E 1B44
+         SR    6,6                       . 000C60 1B66
+         IC    4,0(,5)                   . 000C62 4340 5000
+         IC    6,1(,5)                   . 000C66 4360 5001
+         SRA   4,1                       . 000C6A 8A40 0001
+         STC   4,DATA0D0A                . 000C6E 4240 10B2
+         MVC   DATA0D0C(2),2(5)          . 000C72 D201 10B4 5002
+CVT00C78 CLI   0(3),X'4D'                . 000C78 954D 3000
+         BE    CVT00C94                  . 000C7C 4780 103C
+         CLI   0(3),X'6C'                . 000C80 956C 3000
+         BE    CVT00C94                  . 000C84 4780 103C
+         LA    3,1(,3)                   . 000C88 4130 3001
+         BCT   6,CVT00C78                     LOOP                     *
+                                         . 000C8C 4660 1020
+         B     CVT00D14                  . 000C90 47F0 10BC
+CVT00C94 LA    3,1(,3)                   . 000C94 4130 3001
+         ST    3,DATA10E4                . 000C98 5030 148C
+         SR    7,7                       . 000C9C 1B77
+         B     CVT00CB2                  . 000C9E 47F0 105A
+CVT00CA2 CLI   0(3),X'6B'                . 000CA2 956B 3000
+         BE    CVT00CBA                  . 000CA6 4780 1062
+         LA    7,1(,7)                   . 000CAA 4170 7001
+         LA    3,1(,3)                   . 000CAE 4130 3001
+CVT00CB2 BCT   6,CVT00CA2                     LOOP                     *
+                                         . 000CB2 4660 104A
+         B     CVT00D14                  . 000CB6 47F0 10BC
+CVT00CBA BAL   9,CVT00CF6                     CALL                     *
+                                         . 000CBA 4590 109E
+         LA    3,1(,3)                   . 000CBE 4130 3001
+         ST    3,DATA10E4                . 000CC2 5030 148C
+         SR    7,7                       . 000CC6 1B77
+         AR    2,4                       . 000CC8 1A24
+         B     CVT00CE6                  . 000CCA 47F0 108E
+CVT00CCE CLI   0(3),X'5D'                . 000CCE 955D 3000
+         BE    CVT00CEE                  . 000CD2 4780 1096
+         CLI   0(3),X'4C'                . 000CD6 954C 3000
+         BE    CVT00CEE                  . 000CDA 4780 1096
+         LA    7,1(,7)                   . 000CDE 4170 7001
+         LA    3,1(,3)                   . 000CE2 4130 3001
+CVT00CE6 BCT   6,CVT00CCE                     LOOP                     *
+                                         . 000CE6 4660 1076
+         B     CVT00D14                  . 000CEA 47F0 10BC
+CVT00CEE BAL   9,CVT00CF6                     CALL                     *
+                                         . 000CEE 4590 109E
+         B     CVT00D28                  . 000CF2 47F0 10D0
+CVT00CF6 STC   7,DATA0D0B                . 000CF6 4270 10B3
+         STM   0,3,DATA1074              . 000CFA 9003 141C
+         BALR  8,0                            BASE                     *
+                                         . 000CFE 0580
+         L     3,996(,8)                 . 000D00 5830 83E4
+         L     1,804(,8)                 . 000D04 5810 8324
+         BALR  0,1                            CALL                     *
+                                         . 000D08 0501
+DATA0D0A DC    X'00'                     . 000D0A 00
+DATA0D0B DC    X'00'                     . 000D0B 00
+DATA0D0C DC    X'0000'                   . 000D0C 0000
+         LM    0,3,884(8)                . 000D0E 9803 8374
+         BR    9                         . 000D12 07F9
+CVT00D14 L     2,DATA1054                . 000D14 5820 13FC
+         IC    4,0(,5)                   . 000D18 4340 5000
+CVT00D1C MVI   0(2),X'00'                . 000D1C 9200 2000
+         LA    2,1(,2)                   . 000D20 4120 2001
+         BCT   4,CVT00D1C                     LOOP                     *
+                                         . 000D24 4640 10C4
+CVT00D28 LM    2,9,DATA1054              . 000D28 9829 13FC
+         LR    1,0                       . 000D2C 1810
+         B     CVT00C5C                  . 000D2E 47F0 1004
+         USING FCVCOUTP,1                .
+FCVCOUTP STM   2,9,DATA1054              . 000D32 9029 1322
+CVT00D36 MVI   DATA10FB,X'FF'            . 000D36 92FF 13C9
+         LR    5,0                       . 000D3A 1850
+         SR    4,4                       . 000D3C 1B44
+         SR    6,6                       . 000D3E 1B66
+         IC    4,0(,5)                   . 000D40 4340 5000
+         IC    6,1(,5)                   . 000D44 4360 5001
+         SRA   4,1                       . 000D48 8A40 0001
+         STC   4,DATA0D9E                . 000D4C 4240 106C
+         MVC   DATA0DA0(2),2(5)          . 000D50 D201 106E 5002
+         AR    2,4                       . 000D56 1A24
+         AR    3,6                       . 000D58 1A36
+         BCTR  3,0                            DECREMENT                *
+                                         . 000D5A 0630
+         MVI   0(3),X'5D'                . 000D5C 925D 3000
+         BAL   9,CVT00D84                     CALL                     *
+                                         . 000D60 4590 1052
+         SR    2,4                       . 000D64 1B24
+         BCTR  3,0                            DECREMENT                *
+                                         . 000D66 0630
+         MVI   0(3),X'6B'                . 000D68 926B 3000
+         BAL   9,CVT00D84                     CALL                     *
+                                         . 000D6C 4590 1052
+         BCTR  3,0                            DECREMENT                *
+                                         . 000D70 0630
+         MVI   0(3),X'4D'                . 000D72 924D 3000
+CVT00D76 MVI   DATA10FB,X'00'            . 000D76 9200 13C9
+         LM    2,9,DATA1054              . 000D7A 9829 1322
+         LR    1,0                       . 000D7E 1810
+         B     CVT00D36                  . 000D80 47F0 1004
+CVT00D84 SH    6,DATA0FAA                . 000D84 4B60 1278
+         BC    12,CVT00D76               . 000D88 47C0 1044
+         STC   6,DATA0D9F                . 000D8C 4260 106D
+         SR    3,6                       . 000D90 1B36
+         STM   0,1,DATA1074              . 000D92 9001 1342
+         DROP  1                         .
+         BALR  8,0                            BASE                     *
+                                         . 000D96 0580
+         USING *,8                       .
+         L     1,DATA1028                . 000D98 5810 8290
+         BALR  0,1                            CALL                     *
+                                         . 000D9C 0501
+DATA0D9E DC    X'00'                     . 000D9E 00
+DATA0D9F DC    X'00'                     . 000D9F 00
+DATA0DA0 DC    X'0000'                   . 000DA0 0000
+         LM    0,1,DATA1074              . 000DA2 9801 82DC
+         DROP  8                         .
+         USING IHCFCVTH+3378,1           .
+         SR    6,6                       . 000DA6 1B66
+CVT00DA8 CLI   0(3),X'40'                . 000DA8 9540 3000
+         BNE   CVT00DBC                  . 000DAC 4770 108A
+         LA    6,1(,6)                   . 000DB0 4160 6001
+         LA    3,1(,3)                   . 000DB4 4130 3001
+         B     CVT00DA8                  . 000DB8 47F0 1076
+CVT00DBC LTR   6,6                       . 000DBC 1266
+         BC    12,CVT00D76               . 000DBE 47C0 1044
+         BR    9                         . 000DC2 07F9
+         DROP  1                         .
+CVT00DC4 LA    1,0                       . 000DC4 4110 0000
+         LA    10,0                      . 000DC8 41A0 0000
+         STC   6,0(4)                    . 000DCC 4264 0000
+         IC    3,0(14,8)                 . 000DD0 433E 8000
+         EX    2,0(7,1)                  . 000DD4 4427 1000
+         BAL   1,2560(8,6)                    PLIST                    *
+                                         . 000DD8 4518 6A00
+         BAL   15,1024(4,2)                   CALL                     *
+                                         . 000DDC 45F4 2400
+         BCT   9,1664(8,9)                    LOOP                     *
+                                         . 000DE0 4698 9680
+         BC    5,3600(15,5)              . 000DE4 475F 5E10
+         LH    3,2762(11,9)              . 000DE8 483B 9ACA
+         DC    X'08080808'               . 000DEC 08080808
+DATA0DF0 DC    X'508AC7230489E800'       . 000DF0 508AC7230489E800
+         DC    X'492540BE40000000'       . 000DF8 492540BE40000000
+         DC    X'5156BC75E2D63100'       . 000E00 5156BC75E2D63100
+         DC    X'59'                     . 000E08 59
+         DC    C'I2I'                    . 000E09 C9F2C9
+         DC    X'CD04674F621D6329'       . 000E0C CD04674F621D6329
+         DC    C'1C*'                    . 000E14 F1C35C
+         DC    X'A56A446C3B15F992'       . 000E17 A56A446C3B15F992
+         DC    X'67729F4F2726179A'       . 000E1F 67729F4F2726179A
+         DC    X'237B172EBAD6DDC7'       . 000E27 237B172EBAD6DDC7
+         DC    X'3C'                     . 000E2F 3C
+DATA0E30 DC    X'4E00000000000000'       . 000E30 4E00000000000000
+DATA0E38 DC    X'08080808'               . 000E38 08080808
+DATA0E3C DC    X'08080808'               . 000E3C 08080808
+DATA0E40 DC    X'08080808'               . 000E40 08080808
+DATA0E44 DC    X'0808080808080808'       . 000E44 0808080808080808
+DATA0E4C DC    X'0808080808080808'       . 000E4C 0808080808080808
+DATA0E54 DC    X'08080808'               . 000E54 08080808
+DATA0E58 DC    X'7B172EBAD6DDC73C'       . 000E58 7B172EBAD6DDC73C
+         DC    X'729F4F2726179A23'       . 000E60 729F4F2726179A23
+         DC    X'6A446C3B15F99267'       . 000E68 6A446C3B15F99267
+         DC    X'621D6329'               . 000E70 621D6329
+         DC    C'1C*'                    . 000E74 F1C35C
+         DC    X'A5621D6329'             . 000E77 A5621D6329
+         DC    C'1C*'                    . 000E7C F1C35C
+         DC    X'A559'                   . 000E7F A559
+         DC    C'I2I'                    . 000E81 C9F2C9
+         DC    X'CD04674F5156BC75'       . 000E84 CD04674F5156BC75
+         DC    X'E2D63100492540BE'       . 000E8C E2D63100492540BE
+         DC    X'4000000041100000'       . 000E94 4000000041100000
+         DC    X'000000003944B82F'       . 000E9C 000000003944B82F
+         DC    X'A09B5A52302F3942'       . 000EA4 A09B5A52302F3942
+         DC    X'192484462814484B'       . 000EAC 192484462814484B
+         DC    X'FEEBC2A11F8B6131'       . 000EB4 FEEBC2A11F8B6131
+         DC    X'3BBABCF9173BDCF4'       . 000EBC 3BBABCF9173BDCF4
+         DC    X'95A970460F19B604'       . 000EC4 95A970460F19B604
+         DC    X'AAACA62B06B0AF48'       . 000ECC AAACA62B06B0AF48
+         DC    X'EC79AD21'               . 000ED4 EC79AD21
+DATA0ED8 DC    X'4110000000000000'       . 000ED8 4110000000000000
+DATA0EE0 DC    X'401999999999999A'       . 000EE0 401999999999999A
+         DC    X'3F28F5C28F5C28F6'       . 000EE8 3F28F5C28F5C28F6
+         DC    X'3E4189374BC6A7F0'       . 000EF0 3E4189374BC6A7F0
+         DC    X'3D68DB8BAC710CB2'       . 000EF8 3D68DB8BAC710CB2
+DATA0F00 DC    X'3C10C6F7A0B5ED8D'       . 000F00 3C10C6F7A0B5ED8D
+         DC    X'3B1AD7F29ABCAF48'       . 000F08 3B1AD7F29ABCAF48
+         DC    X'3A2AF31DC4611873'       . 000F10 3A2AF31DC4611873
+         DC    X'3944B82FA09B5A52'       . 000F18 3944B82FA09B5A52
+         DC    X'483B9ACA00000000'       . 000F20 483B9ACA00000000
+         DC    X'475F5E1000000000'       . 000F28 475F5E1000000000
+DATA0F30 DC    X'4698968000000000'       . 000F30 4698968000000000
+DATA0F38 DC    X'45186A0000000000'       . 000F38 45186A0000000000
+         DC    X'4427100000000000'       . 000F40 4427100000000000
+         DC    X'433E800000000000'       . 000F48 433E800000000000
+         DC    X'42640000'               . 000F50 42640000
+DATA0F54 DC    X'00000000'               . 000F54 00000000
+DATA0F58 DC    X'3CA7C5AC471B4784'       . 000F58 3CA7C5AC471B4784
+DATA0F60 DC    X'45F4240000000000'       . 000F60 45F4240000000000
+DATA0F68 DC    X'4600000000000000'       . 000F68 4600000000000000
+DATA0F70 DC    X'4000000000000004'       . 000F70 4000000000000004
+         DC    X'41A0000000000000'       . 000F78 41A0000000000000
+DATA0F80 DC    X'000000F0'               . 000F80 000000F0
+DATA0F84 DC    X'0000000F'               . 000F84 0000000F
+DATA0F88 DC    X'FFBAFFC4FFCEFFD8'       . 000F88 FFBAFFC4FFCEFFD8
+         DC    X'FFD8FFE2FFECFFF6'       . 000F90 FFD8FFE2FFECFFF6
+         DC    X'000000090014001E'       . 000F98 000000090014001E
+         DC    X'00280032003C0046'       . 000FA0 00280032003C0046
+DATA0FA8 DC    X'0000'                   . 000FA8 0000
+DATA0FAA DC    X'000100020003'           . 000FAA 000100020003
+DATA0FB0 DC    X'0004'                   . 000FB0 0004
+DATA0FB2 DC    X'00050007'               . 000FB2 00050007
+DATA0FB6 DC    X'00080009FFF7FFF8'       . 000FB6 00080009FFF7FFF8
+         DC    X'FFF9FFFAFFFCFFFD'       . 000FBE FFF9FFFAFFFCFFFD
+         DC    X'FFFE'                   . 000FC6 FFFE
+DATA0FC8 DC    X'0006FFFB'               . 000FC8 0006FFFB
+DATA0FCC DC    X'D20020003000'           . 000FCC D20020003000
+DATA0FD2 DC    X'D20030002000'           . 000FD2 D20030002000
+         DC    V(IHCERRM)                . 000FD8 00000000
+DATA0FDC DC    A(IBCOM#)                 . 000FDC 00000000
+DATA0FE0 DC    X'47'                     . 000FE0 47
+         DC    C'00%'                    . 000FE1 F0F06C
+DATA0FE4 DC    X'07FE474E14141414'       . 000FE4 07FE474E14141414
+         DC    X'1414141414141414'       . 000FEC 1414141414141414
+         DC    X'1414141414141414'       . 000FF4 1414141414141414
+         DC    X'1414141414141414'       . 000FFC 1414141414141414
+         DC    X'1414141414141414'       . 001004 1414141414141414
+DATA100C DC    X'14141414'               . 00100C 14141414
+DATA1010 DC    X'00'                     . 001010 00
+DATA1011 DC    X'00'                     . 001011 00
+DATA1012 DC    X'00'                     . 001012 00
+DATA1013 DC    X'00'                     . 001013 00
+DATA1014 DC    X'00FAFBFCFDFEFF00'       . 001014 00FAFBFCFDFEFF00
+INT6SWCH EQU   IHCFCVTH+4123             . 00101B
+DATA101C DC    A(CVT0032E)               . 00101C 0000032E
+DATA1020 DC    A(CVT00716)               . 001020 00000716
+         DC    A(CVT004DE)               . 001024 000004DE
+DATA1028 DC    A(CVT00B82)               . 001028 00000B82
+DATA102C DC    A(CVT006F8)               . 00102C 000006F8
+DATA1030 DC    A(FCVEOUTP)               . 001030 00000B18
+DATA1034 DC    X'1414141414141414'       . 001034 1414141414141414
+         DC    X'1414141414141414'       . 00103C 1414141414141414
+         DC    X'1414141414141414'       . 001044 1414141414141414
+         DC    X'1414141414141404'       . 00104C 1414141414141404
+DATA1054 DC    X'1414141414141414'       . 001054 1414141414141414
+         DC    X'1414141414140C14'       . 00105C 1414141414140C14
+         DC    X'1414141414141414'       . 001064 1414141414141414
+         DC    X'1414141414141414'       . 00106C 1414141414141414
+DATA1074 DC    X'1414141414141414'       . 001074 1414141414141414
+         DC    X'1414141414141414'       . 00107C 1414141414141414
+         DC    X'14141414'               . 001084 14141414
+DATA1088 DC    X'1414141414141414'       . 001088 1414141414141414
+DATA1090 DC    X'1414141414141414'       . 001090 1414141414141414
+DATA1098 DC    X'1414141414141414'       . 001098 1414141414141414
+DATA10A0 DC    X'1414141414141414'       . 0010A0 1414141414141414
+DATA10A8 DC    X'1414141414141414'       . 0010A8 1414141414141414
+DATA10B0 DC    X'14'                     . 0010B0 14
+DATA10B1 DC    X'141414'                 . 0010B1 141414
+DATA10B4 DC    X'14141414'               . 0010B4 14141414
+DATA10B8 DC    X'1414141414141414'       . 0010B8 1414141414141414
+DATA10C0 DC    X'141414'                 . 0010C0 141414
+DATA10C3 DC    X'14'                     . 0010C3 14
+DATA10C4 DC    X'141414'                 . 0010C4 141414
+DATA10C7 DC    X'14'                     . 0010C7 14
+DATA10C8 DC    X'004B'                   . 0010C8 004B
+DATA10CA DC    X'0013'                   . 0010CA 0013
+DATA10CC DC    X'00101414'               . 0010CC 00101414
+DATA10D0 DC    X'14'                     . 0010D0 14
+DATA10D1 DC    X'1414141414'             . 0010D1 1414141414
+DATA10D6 DC    X'1414000000'             . 0010D6 1414000000
+DATA10DB DC    X'000000'                 . 0010DB 000000
+DATA10DE DC    X'00'                     . 0010DE 00
+DATA10DF DC    X'00'                     . 0010DF 00
+DATA10E0 DC    X'00001414'               . 0010E0 00001414
+DATA10E4 DC    X'14141414'               . 0010E4 14141414
+DATA10E8 DC    X'0FFFFFFF'               . 0010E8 0FFFFFFF
+DATA10EC DC    X'0000000A'               . 0010EC 0000000A
+DATA10F0 DC    C'    '                   . 0010F0 40404040
+DATA10F4 DC    X'D20030009000'           . 0010F4 D20030009000
+DATA10FA DC    X'00'                     . 0010FA 00
+DATA10FB DC    X'00'                     . 0010FB 00
+         DC    C'0123456789ABCDEF'       . 0010FC F0F1F2F3F4F5F6F7
+DATA110C DC    C' 0.0'                   . 00110C 40F04BF0
+         DC    A(DATA1140)               . 001110 00001140
+         DC    A(DATA1124)               . 001114 00001124
+         DC    A(DATA1120)               . 001118 00001120
+         DC    X'00000000'               . 00111C 00000000
+DATA1120 DC    X'000000'                 . 001120 000000
+DATA1123 DC    X'00'                     . 001123 00
+DATA1124 DC    X'00000000'               . 001124 00000000
+DATA1128 DC    CL11'  DECIMAL'           . 001128 4040C4C5C3C9D4C1
+DATA1133 DC    C'HEXADECIMAL'            . 001133 C8C5E7C1C4C5C3C9
+         DC    X'0000'                   . 00113E 0000
+DATA1140 DC    X'00000031'               . 001140 00000031
+         DC    C'IHC2'                   . 001144 C9C8C3F2
+DATA1148 DC    CL22' 5I CONVERT - ILLEGAL'                             *
+                                         . 001148 40F5C940C3D6D5E5
+DATA115E DC    CL23'            CHARACTER'                             *
+                                         . 00115E 4040404040404040
+         DC    X'0C'                     . 001175 0C
+         DC    X'0C0C'                   . 001176 0C0C
+         END   IHCFCVTH                  .

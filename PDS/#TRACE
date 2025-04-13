@@ -1,0 +1,24 @@
+       DEFINE('ERROR()')
+       DEFINE('SUM(X,Y)')
+       OPSYN('#','+',2)
+       OPSYN('+','SUM',2)
+       &TRIM   =   1
+       &TRACE   =   1000
+       &FTRACE   =   1000
+       &ERRLIMIT   =   100
+       TRACE('ERRTYPE','KEYWORD',,'ERROR')
+       TOTAL   =   0.0
+ADD    N   =   INPUT                                   :F(PRINT)
+       TOTAL   =   TOTAL + N                           :(ADD)
+SUM    SUM   =   X # Y                                 :S(RETURN)
++                                                      F(FRETURN)
+ERROR  OUTPUT   =   'ERROR ' &ERRTYPE ' IN STATEMENT ' &LASTNO
++                                                      :(RETURN)
+PRINT  OUTPUT   =   'TOTAL IS ' TOTAL
+END
+32.45
+-45.001
+67
+45.L
+.002
+456

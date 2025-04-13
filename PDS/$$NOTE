@@ -1,0 +1,250 @@
+
+   Nomen est omen
+
+   Jay Maynard's compiler collection SYSCPK contains a large
+   section about SNOBOL4 including a load module of a version 3.5
+   The original load module was found on the files
+   section of the Hercules-390 yahoo group
+   provided by Jan Jaeger as told Jay.
+
+   The implementation seems to be part of a distribution described in
+   document s4n3 concerning the V.35 distribution from which Jan Jaeger
+   had recovered this loadmodule.  The source tape of the distribution
+   seems lost in the multiverse.
+
+   The CBT file 604 was created to provide source by disassembing the
+   load module.  Sam Golob wrote about the former verion of the file:
+
+   "I am trying to make the old load module more
+   accessible to users with a recent MVS system, but
+   since I didn't have the original source, I have
+   included a disassembly, which you can assemble and
+   linkedit on your own system."
+
+   Early during 2024, René Jansen discovered that FILE 604 was broken.
+   THe provided load module immmediately abended from a GETMAIN call,
+   by coincidence with abend code 604.
+
+   Veni, vidi, vici
+
+   The used disassembler created misaligned code, e.g., A-constant not
+   on a fullword boundary.
+
+   Fortunately, The disassembled source contains comments
+   comprising a hex and character view together with an address
+   offset. The disassembler was able to create all csects
+   of a load module.
+   The original load module was not on the cbttape, it is recoverable
+   from the SYSCPK. Good.
+
+   The problems thus seems no too difficult to fix ... at first glace.;
+   THe goal was to create a sourece that reproduces the SNOBOL4 system.
+   Well, we'll see.
+
+   To recover the original load module provided by Jan Jaeger I took
+   the IEHMOVE version (on a 3330) and converted it to a load module
+   that could IEBCOPYed/XMITed. If you look who the IEBCOPY version
+   was made, you understand the proverb about everything is looking
+   like a nail. :-)
+
+   The alignment errors were easily fixed, the program began to fly,
+   but not very high.
+
+   The disassembler did not generate code for floating point
+   instructions (this may have been a option as with other
+   disassemblers.)
+
+   But the generated constants (DC X'60' etc.) were not correct.
+   In several cases, the constabts contain not only X-constants
+   corresponding to the comments, but also C-constants.
+   Unfortunately, this part was erroneous.
+
+   I managed to correct this mostly by using some ad-hoc spitbol,
+   Neverthelesss, the resulting code compiled and executed.
+   It was useful to make a small tool to compare load modules asa post
+   processor to AMBLIST.
+
+   Cne part of the goal was abandoned: The different linkage editors
+   (binders) have slightly different behaviour, e.g., differently
+   ordered ESDs. Different assemblers (or binders?)  also produce
+   non-empty data for DS memory zones.
+
+   I could have stopped here.
+
+   Phase 2:
+
+   Although it was possible to fix or reconstruct source
+   from comments of the disassembly with considerable
+   work (e.g. the used disassembler did not generated
+   LD/STD instructions), the result was just a minimal
+   set of simplistic assembler to create a load module
+   without giving much insight to the software (no base
+   registers, etc.)
+
+   In order to get a better version, (and since I was experimenting
+   with
+   disassembiers),
+
+   I looked at ASMDASM, Gerhard Postpischl's
+   DISASM (and even the half century old one from the FELIB).
+
+   The main CSECT S4 is larger than 64K. Gerhard's DISASM uses
+   labels that have four characters hex offset. Actually, this
+   did not a problem in the end.
+
+   The code contains an ENTRY point DATA. This is not appreciated bt
+   DISASM.  Other entry points are tortured.
+
+   Enter ASMDASM.
+
+   Both disassemblers have some partially controllable way
+   to distinguish data constants from instructions.
+   (Gerhard's version would slighly benefit from an INSTR directive.)
+
+   No potential problem generating CSECTs greater than 64K,
+   The program create bad machine code (e.g., register consraints
+   for CLCL), some, but not all, are detected by the assembler.
+   The generation instructions areactually dataareas. IBM recommends
+   to use DATA directives, and is very reluctant to change/correct
+   ASMDASM. So be it.
+   But there is more.
+   In A-constants in S4 into another CSECT (STRING),
+   initially assembled together,
+   not have offsets in the source.
+
+   The listing view of both DISASM and ASMDASM contain useful
+   information, I already had an ad_hoc spitbol to create
+   something similar as with the original disassembler adding
+   code, and addresses as comments. It was not difficult to
+   recover the missing offsets
+   The missing offsets could be recovered.
+
+
+   What to do with base registers. Well, register 9 and 10 are
+   used for datasection, that was easy.
+   Register 11 is used in S4 for all the little subroutines.
+   Many of them can be easily identified because the register
+   is loaded from address constants.
+   Nevertheless, at some point there seemedto occur a problem
+   with overlapping USINGs.
+
+   I gave up ASMDASM and used Gerhard's DISASM.
+
+   Phase 3:
+
+   With the initial disassebled source I tried to replace
+   the large data parts by source and macros from an original SIL
+   implementation.
+
+   Since I found a V311 source and macros which nicely compiled
+   and more or less Worked (Fortran IO seems to have problems)
+
+   The V311 version allowed me to find labels for the
+   subroutines (addresable by reg 11), and furthermore to
+   identify the labels in the DATAxxxx part which
+   allowed to define LABEL directives for DISASM.
+
+   As a consequence, I could replace the data section by a slightly
+   modified part from the V311 SIL. Furthermore, the V311 source
+   version of SUBR was almost good.
+
+   The SIL macro STRING switches between the S4 CSECT an a string
+   pool CSECT STRING.
+   The V311 version uses one LTORG pool (as well as the V35 one).
+
+   The V35 binary is a SUPERZAPed version. A disassebly changes the
+   order of one entry in the LTORG pool. Well, that could be fixed by
+   cheating.  Anyway, the provided source does not use literals but
+   "meaningful" labels. (There is an ISREDIT MACRO to change that).
+
+   During all that time I also discovered lots of documents, and also
+   books which happened to appear in thz archive.org. Small
+   discusssions with Robert Dewar's brother and with Robert Gaskins.
+
+   Phase 4:
+
+   The initially ad-hoc program to produce the "augmented" source
+   is a nice test program for SNOBOL4.  It actually works with
+   SNOBOL4 V35 and V311 as well as with both SPITBOL on cbttape 404
+   as well as with SPITBOL 370 on the SYSCPK. SPITBOL is a magnitude
+   faster.
+
+   I dad an early feature to replace labels in the literal ppol
+   by literals
+   which I abandoned in favour of the forementioed
+   ISREDIT macro.
+   (It's always fun to practice other sports and tools).
+
+   This intermediate label replacing requires large amount of
+   instructions (> 16M) which only SPITBOL 370 could handle.
+   If you use hercules, you get lots of AUR exponent overflows due
+   the intelLigent way of counting the number of statements using
+   two floating point registers.
+
+   As indicated in the s4n3 notice, the provided load module
+   was not created direcly from SIL macros, but by a code optimizer
+   and furthermore superzapped.
+
+   Since I had already good labels in the source, I decided to
+   merge SIL code as comments. This was a good refreeh of how to
+   program in SNOBOL. Hint: Don't use large linked lists. The
+   SNOBOL4 garbage collector does not survive that. (THe last time
+   I had actively used SPITBOL was in 1987 to extract a unix
+   C source product from Retix) into a set of PDS memers.
+
+   The Fortran I/O routines are just disassembled versions.  There are
+   issues in the Fortran IO with DD concatenation/multiple files.
+   On MVS one can use the SYS1.FORTLIB (which has the same problem).
+   The FORTRAN IV programmer's guide(s) in bitsavers may also be
+   helpful. (Not only for FORTRAN.)
+
+   The V311 inplementation can use VSF2 but requires not to
+   call the fortran termination module, I did not investigate
+   to which extent this is a common language environment problem.
+
+   Using IFOX00 as assembler and the MVS IEWL required to replace
+   some DS areas by DC in SUBR, Also, The code enhancing tool
+   xan in handy because it automatically recognized DISASM REPLACE
+   directives.
+
+   The V311 version actually replced the entry point DATA by COMMON.
+   I did not make that change (it wouldn't have changed the TXT
+   part of the load module though).
+
+   I adapted test programs from SPITBOL which I added to this file,
+   and
+   others from the green book.
+
+   Conclusion:
+
+   This new version has been created mostly using the
+   disassembler DISASM from Gerhard Postpischil.
+
+   The main module S4 is a mix of disassmbled code
+   and comments from the SIL implementation available
+   originally from the University of Arizona and others
+   such as the Michigan Terminal System.
+
+   The SUBR section is original source code slightly patched in order
+   to create modules identical to the original one.
+
+   I did not find an exact source version of the fortran IO.
+
+   The provided load module in this package has the same
+   TXT part as the original one, only the CESD and RLD
+   parts are different but that's irrelevant.
+
+   I did not invest (or waste) time to correct/enhance DISASM.
+   300 lines of SPITBOL as aresult of experiments are preferable.
+
+
+   I do not recommend to use this software for any production software
+   but rather use the SPITBOL 370 implementation which nicely
+   document. The 360 SPITBOL on cbt 404 is also somewhat outdated,
+   e.g., PDS handling.
+
+   The SYCCPK SPITBOL 370 has been updatd to provide a clean generation
+   procedure for Z/OS as well as MVS-TK5
+
+   nuf said
+
